@@ -1,70 +1,320 @@
 <!DOCTYPE html>
-<!-- Trang giới thiệu (Marketing URL của App Store). Nội dung lấy từ docs/store_listing.md của dự án. -->
+<!-- Trang giới thiệu (Marketing URL của App Store). Song ngữ vi/en: mỗi khối có lớp .vi hoặc .en, nút góc phải đổi. -->
 <html lang="vi">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Đầu tư từ Đâu · Investor Life</title>
-<meta name="description" content="Đầu tư từ Đâu (Investor Life): trò chơi mô phỏng đời nhà đầu tư, bắt đầu với 10 triệu ở tuổi 22, chỉ dùng tiền ảo. A personal finance life sim with virtual money.">
+<meta name="description" content="Đầu tư từ Đâu (Investor Life): trò chơi mô phỏng đời nhà đầu tư. Bắt đầu với 10 triệu ở tuổi 22, đi làm, đầu tư, lập gia đình và tìm tự do tài chính. Chỉ dùng tiền ảo.">
+<meta property="og:title" content="Đầu tư từ Đâu · Investor Life">
+<meta property="og:description" content="Bắt đầu với 10 triệu ở tuổi 22 và tìm tự do tài chính trước tuổi hưu. A personal finance life sim with virtual money.">
+<meta property="og:image" content="https://pcingame.github.io/investor-life-page/img/vi-home.webp">
+<link rel="icon" href="img/icon.png">
 <style>
-  :root { color-scheme: light dark; }
-  body {
-    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; color: #1f2430;
-    background: #f7f8fb;
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --text: #1d2230; --muted: #667089;
+    --line: #e1e5ee; --accent: #1f7a5c; --accent-2: #3b6fd8; --soft: #e8f5ef;
+    --on-accent: #ffffff;
+    --hero: linear-gradient(135deg, #cfeee0 0%, #d7e2fb 100%);
   }
   @media (prefers-color-scheme: dark) {
-    body { color: #e4e6ee; background: #15161d; }
-    a { color: #8fb4ff; }
-    hr { border-color: #2c2f3b; }
+    :root {
+      --bg: #0d1017; --card: #161a24; --text: #e7e9f1; --muted: #98a0b6;
+      --line: #262c3a; --accent: #7fd6b3; --accent-2: #8fb4ff; --soft: #14251f;
+      --on-accent: #0d1017;
+      --hero: linear-gradient(135deg, #12332a 0%, #1a2548 100%);
+    }
   }
-  h1 { font-size: 2.2rem; margin: .2em 0; }
-  h2 { font-size: 1.3rem; margin-top: 1.8em; border-bottom: 2px solid #3b6fd8; padding-bottom: .2em; }
-  .tag { font-size: 1.1rem; color: #7a8094; margin: 0 0 1em; }
-  a { color: #3b6fd8; word-break: break-word; }
-  hr { border: none; border-top: 1px solid #dde1ea; margin: 2.5em 0; }
-  nav a { margin-right: 1.2em; }
-  li { margin: .3em 0; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  a { color: var(--accent-2); }
+  img { max-width: 100%; display: block; height: auto; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  html[lang="vi"] .en, html[lang="en"] .vi { display: none !important; }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+  header.top .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--text); text-decoration: none; }
+  header.top .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  header.top nav { margin-left: auto; display: flex; gap: 16px; font-size: .92rem; align-items: center; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  header.top nav a:hover { color: var(--text); }
+  #lang { border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer; }
+  @media (max-width: 640px) { header.top nav a.hide-s { display: none; } }
+
+  .hero { background: var(--hero); overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding-top: 48px; padding-bottom: 0; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -.02em; }
+  .hero .lead { font-size: 1.2rem; color: var(--muted); margin: 0 0 20px; max-width: 34em; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .badge { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .88rem; }
+  .cta { display: inline-block; background: var(--accent); color: var(--on-accent); padding: 12px 22px; border-radius: 14px; font-weight: 700; text-decoration: none; }
+  .cta.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-left: 8px; }
+  .hero .phone { justify-self: center; width: min(300px, 80%); margin-top: 8px; }
+  .hero .phone img { border-radius: 28px 28px 0 0; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-top: 32px; } }
+
+  section { padding: 56px 0 8px; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin: 0 0 8px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 24px; max-width: 40em; }
+
+  .shots { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 20px 20px; margin: 0 -20px; }
+  .shot { flex: 0 0 230px; scroll-snap-align: start; margin: 0; }
+  .shot img { border-radius: 22px; border: 1px solid var(--line); }
+  .shot figcaption { font-size: .88rem; color: var(--muted); margin-top: 8px; text-align: center; }
+
+  .steps { counter-reset: s; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 0; list-style: none; margin: 0; }
+  .steps li { counter-increment: s; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 800; margin-bottom: 8px; }
+  .steps b { display: block; margin-bottom: 4px; }
+  .steps p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .card .ic { font-size: 1.7rem; line-height: 1; margin-bottom: 8px; }
+  .card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+  .split { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: center; }
+  .split.rev { grid-template-columns: 260px 1fr; }
+  .split img { border-radius: 22px; border: 1px solid var(--line); }
+  .split .lede { color: var(--muted); }
+  @media (max-width: 760px) { .split, .split.rev { grid-template-columns: 1fr; } .split img { max-width: 260px; margin: 0 auto; } }
+  .split ul { padding-left: 1.2em; margin: 8px 0 0; }
+  .split li { margin: .35em 0; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { background: var(--soft); border-radius: 999px; padding: 4px 12px; font-size: .9rem; }
+
+  .tips { background: var(--soft); border-radius: 18px; padding: 22px 24px; }
+  .tips ul { margin: 8px 0 0; padding-left: 1.2em; }
+  .tips li { margin: .4em 0; }
+
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 0; color: var(--muted); }
+
+  footer { margin-top: 64px; border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--muted); font-size: .92rem; }
+  footer a { margin-right: 16px; }
 </style>
 </head>
 <body>
 
-<h1>Đầu tư từ Đâu</h1>
-<p class="tag">Investor Life · Mô phỏng đời nhà đầu tư</p>
-<nav><a href="support.html">Hỗ trợ / Support</a><a href="privacy-policy.html">Quyền riêng tư / Privacy</a></nav>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="30" height="30"><span>Đầu tư từ Đâu</span></a>
+    <nav>
+      <a class="hide-s" href="#howto"><span class="vi">Cách chơi</span><span class="en">How to play</span></a>
+      <a class="hide-s" href="#features"><span class="vi">Tính năng</span><span class="en">Features</span></a>
+      <a href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a>
+      <button id="lang" type="button" aria-label="Language">VI · EN</button>
+    </nav>
+  </div>
+</header>
 
-<h2>Tiếng Việt</h2>
-<p>Bắt đầu với 10 triệu đồng ở tuổi 22. Mỗi lượt là một tháng: đi làm, tiết kiệm, mua cổ phiếu, vàng, bất động sản, mở quán trà sữa, cà phê, phòng gym. Đọc tin tức trong nước và thế giới để đoán thị trường, nhưng tin có thể sai.</p>
-<ul>
-<li>Kinh tế có chu kỳ: bùng nổ, suy thoái, lạm phát, khủng hoảng</li>
-<li>Nhân vật, chuỗi truyện, kết hôn, con cái, bảo hiểm, thuế, sức khoẻ</li>
-<li>3 vùng miền, 3 độ khó, nhiều xuất thân và kết cục</li>
-<li>Cuối ván so tài sản của bạn với người chỉ mua quỹ chỉ số trong cùng thế giới</li>
-<li>Thử thách mỗi ngày, thành tựu, xem lại hành trình</li>
-<li>Chơi offline được; bảng xếp hạng và sao lưu đám mây là tuỳ chọn</li>
-<li>Quảng cáo chỉ là quảng cáo thưởng do bạn tự chọn xem</li>
-<li>Premium (mua một lần): bỏ quảng cáo, thêm lời khuyên và lượt hoàn tác; có thể mua riêng từng xuất thân</li>
-</ul>
-<p>Đây là trò chơi mô phỏng, chỉ dùng tiền ảo. Không phải lời khuyên tài chính hay đầu tư, không giao dịch tiền thật, không kết nối sàn.</p>
+<div class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <h1>Đầu tư từ Đâu</h1>
+      <p class="lead vi">Sống trọn đời một nhà đầu tư: bắt đầu với 10 triệu đồng ở tuổi 22, đi làm, tiết kiệm, đầu tư, lập gia đình và tìm tự do tài chính trước tuổi hưu.</p>
+      <p class="lead en">Live a whole investor's life: start at 22 with 10 million VND, work, save, invest, start a family and reach financial freedom before retirement.</p>
+      <div class="badges">
+        <span class="badge">🎮 <span class="vi">Mô phỏng theo lượt, mỗi lượt một tháng</span><span class="en">Turn-based, one month per turn</span></span>
+        <span class="badge">💵 <span class="vi">Chỉ dùng tiền ảo</span><span class="en">Virtual money only</span></span>
+        <span class="badge">📴 <span class="vi">Chơi offline được</span><span class="en">Plays offline</span></span>
+        <span class="badge">🇻🇳 <span class="vi">Tiếng Việt · English</span><span class="en">Vietnamese · English</span></span>
+      </div>
+      <a class="cta" href="#howto"><span class="vi">Xem cách chơi</span><span class="en">See how to play</span></a>
+      <a class="cta ghost" href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a>
+    </div>
+    <div class="phone">
+      <img class="vi" src="img/vi-home.webp" alt="Màn hình Trang chủ: tổng tài sản, mục tiêu và nút Tháng tới" width="480" height="1044">
+      <img class="en" src="img/en-home.webp" alt="Home screen: total assets, goal progress and the Next month button" width="480" height="1044">
+    </div>
+  </div>
+</div>
 
-<hr>
+<main class="wrap">
 
-<h2>English</h2>
-<p>Start at 22 with 10 million VND. Each turn is one month: work, save, buy stocks, gold, real estate, open a bubble-tea shop, café or gym. Read local and world headlines to guess the market, but news can be wrong.</p>
-<ul>
-<li>Economic cycles: boom, recession, inflation, crisis</li>
-<li>NPCs, story chains, marriage, kids, insurance, taxes, health</li>
-<li>3 regions, 3 difficulties, many backgrounds and endings</li>
-<li>At the end, compare your wealth with someone who only held an index fund in the same world</li>
-<li>Daily challenge, achievements, journey replay</li>
-<li>Plays offline; leaderboards and cloud backup are optional</li>
-<li>The only ads are rewarded ads you choose to watch</li>
-<li>Premium (one-time purchase): no ads, more advice and undos; each background can also be bought on its own</li>
-</ul>
-<p>This is a simulation game with virtual money only. It is not financial or investment advice, there is no real-money trading and no connection to any exchange.</p>
+<section id="screens">
+  <h2><span class="vi">Một ván chơi trông như thế nào</span><span class="en">What a run looks like</span></h2>
+  <p class="sub vi">Vuốt ngang để xem các màn hình chính.</p>
+  <p class="sub en">Swipe sideways to browse the main screens.</p>
+  <div class="shots">
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-market.webp" alt="Thị trường" width="480" height="1044"><img class="en" loading="lazy" src="img/en-market.webp" alt="Market" width="480" height="1044"><figcaption><span class="vi">Thị trường: giá và biểu đồ từng tài sản</span><span class="en">Market: prices and charts per asset</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-portfolio.webp" alt="Danh mục" width="480" height="1044"><img class="en" loading="lazy" src="img/en-portfolio.webp" alt="Portfolio" width="480" height="1044"><figcaption><span class="vi">Danh mục: cơ cấu, lãi/lỗ</span><span class="en">Portfolio: allocation and P&amp;L</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-business.webp" alt="Kinh doanh" width="480" height="1044"><img class="en" loading="lazy" src="img/en-business.webp" alt="Business" width="480" height="1044"><figcaption><span class="vi">Kinh doanh: trà sữa, cà phê, gym</span><span class="en">Business: tea shop, café, gym</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-news.webp" alt="Tin tức" width="480" height="1044"><img class="en" loading="lazy" src="img/en-news.webp" alt="News" width="480" height="1044"><figcaption><span class="vi">Tin tức: nguồn nào đúng, nguồn nào sai</span><span class="en">News: which sources get it right</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-life.webp" alt="Cuộc sống" width="480" height="1044"><img class="en" loading="lazy" src="img/en-life.webp" alt="Life" width="480" height="1044"><figcaption><span class="vi">Cuộc sống: sức khoẻ, căng thẳng, quan hệ</span><span class="en">Life: health, stress, relationships</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-report.webp" alt="Báo cáo tài chính" width="480" height="1044"><img class="en" loading="lazy" src="img/en-report.webp" alt="Financial report" width="480" height="1044"><figcaption><span class="vi">Báo cáo tài chính hằng tháng</span><span class="en">Monthly financial report</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-event.webp" alt="Sự kiện" width="480" height="1044"><img class="en" loading="lazy" src="img/en-event.webp" alt="Event" width="480" height="1044"><figcaption><span class="vi">Sự kiện bất ngờ buộc bạn chọn</span><span class="en">Surprise events force a choice</span></figcaption></figure>
+    <figure class="shot"><img class="vi" loading="lazy" src="img/vi-ending.webp" alt="Kết cục" width="480" height="1044"><img class="en" loading="lazy" src="img/en-ending.webp" alt="Ending" width="480" height="1044"><figcaption><span class="vi">Kết cục và điểm số cuối ván</span><span class="en">Ending and final score</span></figcaption></figure>
+  </div>
+</section>
 
-<hr>
-<p class="tag">© 2026 Doan Thanh Phuong · <a href="mailto:phuongtdoan2008@gmail.com">phuongtdoan2008@gmail.com</a></p>
+<section id="howto">
+  <h2><span class="vi">Cách chơi</span><span class="en">How to play</span></h2>
+  <p class="sub vi">Không có đồng hồ chạy. Bạn nghĩ bao lâu cũng được, thời gian chỉ trôi khi bấm <b>Tháng tới</b>.</p>
+  <p class="sub en">There is no clock. Think as long as you like; time only moves when you tap <b>Next month</b>.</p>
+  <ol class="steps">
+    <li><b class="vi">Chọn xuất thân</b><b class="en">Pick a start</b>
+      <p class="vi">Chọn xuất thân, vùng sống (thành phố lớn, thị trấn, tỉnh lẻ) và độ khó. Vùng và độ khó đổi lương, chi phí, giá nhà và điểm số.</p>
+      <p class="en">Choose a background, a region (big city, town, countryside) and a difficulty. They change pay, living costs, house prices and score.</p></li>
+    <li><b class="vi">Đọc tin, quyết định</b><b class="en">Read, then decide</b>
+      <p class="vi">Mỗi tháng bạn nhận lương, trả chi phí, rồi mua bán cổ phiếu, vàng, bất động sản, mở cơ sở kinh doanh hoặc vay và trả nợ.</p>
+      <p class="en">Each month you earn a salary, pay your costs, then trade stocks, gold or property, open a business, or borrow and repay.</p></li>
+    <li><b class="vi">Giữ cuộc sống cân bằng</b><b class="en">Keep life in balance</b>
+      <p class="vi">Sức khoẻ, căng thẳng và quan hệ đều có thể kéo bạn gục dù tài khoản đầy. Nghỉ dưỡng, dành thời gian cho gia đình, khám sức khoẻ, mua bảo hiểm.</p>
+      <p class="en">Health, stress and relationships can sink you even with a full account. Take vacations, spend time with family, get checkups, buy insurance.</p></li>
+    <li><b class="vi">Xử lý sự kiện</b><b class="en">Handle events</b>
+      <p class="vi">Bạn bè rủ hùn vốn, đồng nghiệp vay tiền, thanh tra, thiên nga đen trên thị trường. Mỗi lựa chọn có giá của nó.</p>
+      <p class="en">Friends pitch deals, colleagues ask for loans, regulators call, black swans hit the market. Every choice has a price.</p></li>
+    <li><b class="vi">Bấm Tháng tới</b><b class="en">Tap Next month</b>
+      <p class="vi">Kinh tế, giá, tin tức và đời sống chuyển sang tháng sau. Có nút hoàn tác tháng vừa qua và nút tua nhanh nhiều tháng.</p>
+      <p class="en">The economy, prices, news and your life move on. You can undo the last month or fast-forward several months.</p></li>
+    <li><b class="vi">Về đích</b><b class="en">Reach the finish</b>
+      <p class="vi">Đạt tự do tài chính sớm, hoặc nghỉ hưu ở tuổi 60 trong trạng thái khoẻ và còn người thân bên cạnh. Cuối ván so với người chỉ mua quỹ chỉ số trong cùng thế giới.</p>
+      <p class="en">Reach financial freedom early, or retire at 60 healthy and with people around you. At the end, compare yourself with someone who only held an index fund in the same world.</p></li>
+  </ol>
+</section>
 
+<section>
+  <div class="tips">
+    <h2><span class="vi">Mẹo cho người mới</span><span class="en">Tips for new players</span></h2>
+    <ul class="vi">
+      <li>Giữ một khoản tiền mặt đủ vài tháng chi phí. Sự kiện và suy thoái thích bắt người hết tiền.</li>
+      <li>Đừng dồn hết vào một tài sản. Vàng thường giữ giá khi chứng khoán rơi, crypto lên xuống mạnh nhất.</li>
+      <li>Tin tức có độ tin cậy khác nhau và bị giấu. Hãy xem nguồn nào đúng nhiều lần, tin hãy kiểm chứng.</li>
+      <li>Lãi suất tăng làm trái phiếu và nợ đổi giá. Đọc tin vĩ mô trước khi vay mua nhà.</li>
+      <li>Kinh doanh sinh tiền đều nhưng cần nâng cấp, thuê người, quảng cáo để lên. Đầu tư sớm thì lãi kép làm việc cho bạn lâu hơn.</li>
+      <li>Giàu mà ốm đau, cô đơn vẫn là một kết cục buồn. Đừng bỏ qua sức khoẻ và gia đình.</li>
+    </ul>
+    <ul class="en">
+      <li>Keep a cash buffer worth a few months of costs. Events and recessions love to catch people with none.</li>
+      <li>Do not put everything in one asset. Gold often holds up when stocks fall; crypto swings the hardest.</li>
+      <li>News sources differ in reliability, and the reliability is hidden. Watch which sources are right over time, and verify tips.</li>
+      <li>Rising rates reprice bonds and debt. Read the macro news before borrowing to buy a home.</li>
+      <li>A business pays steadily but needs upgrades, staff and ads to grow. Invest early and compounding works for you longer.</li>
+      <li>Rich but sick and lonely is still a sad ending. Do not neglect health and family.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="features">
+  <h2><span class="vi">Có gì trong game</span><span class="en">What is inside</span></h2>
+  <p class="sub vi">Một thế giới kinh tế có chu kỳ, thay đổi theo từng ván.</p>
+  <p class="sub en">An economy with cycles, different every run.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">📈</div><h3 class="vi">Kinh tế có chu kỳ</h3><h3 class="en">Economic cycles</h3><p class="vi">Bùng nổ, suy thoái, lạm phát, khủng hoảng, lãi suất lên xuống. Giá mọi tài sản chạy theo.</p><p class="en">Boom, recession, inflation, crisis, rising and falling rates. Every asset price follows.</p></div>
+    <div class="card"><div class="ic">📰</div><h3 class="vi">Tin tức nhiều nguồn</h3><h3 class="en">News with sources</h3><p class="vi">Tin trong nước và thế giới từ nguồn chính thống, chuyên gia, người ảnh hưởng, tin đồn. Có tin đúng, có tin sai.</p><p class="en">Local and world headlines from official outlets, analysts, influencers and rumours. Some are right, some are wrong.</p></div>
+    <div class="card"><div class="ic">🏠</div><h3 class="vi">Bất động sản</h3><h3 class="en">Real estate</h3><p class="vi">Phòng trọ, căn hộ, đất nền. Mua trả góp, cho thuê hoặc tự ở, chịu trống nhà và bảo trì. Giá nhà khác nhau theo vùng.</p><p class="en">Rooms, apartments, land. Buy on a mortgage, rent out or live in, with vacancies and upkeep. Prices differ by region.</p></div>
+    <div class="card"><div class="ic">🧋</div><h3 class="vi">Mở cơ sở kinh doanh</h3><h3 class="en">Run a business</h3><p class="vi">Quán trà sữa, cà phê, phòng gym. Tuyển người, chạy quảng cáo, nâng cấp, hoặc bán lại.</p><p class="en">Bubble-tea shop, café, gym. Hire staff, run ads, upgrade, or sell.</p></div>
+    <div class="card"><div class="ic">👨‍👩‍👧</div><h3 class="vi">Gia đình và nhân vật</h3><h3 class="en">Family and characters</h3><p class="vi">Kết hôn, có con, bảo hiểm, thuế, sức khoẻ. Gặp người cố vấn, chủ ngân hàng, môi giới và một đối thủ.</p><p class="en">Marriage, kids, insurance, taxes, health. Meet a mentor, a banker, a broker and a rival.</p></div>
+    <div class="card"><div class="ic">🏁</div><h3 class="vi">Nhiều kết cục</h3><h3 class="en">Many endings</h3><p class="vi">Tự do nhờ đầu tư, nhờ nhà đất hay doanh nghiệp, đại gia hạnh phúc, hưu trí an nhàn, hay giàu mà cô đơn.</p><p class="en">Freedom through investing, property or a business, a happy tycoon, a comfortable retirement, or rich but lonely.</p></div>
+    <div class="card"><div class="ic">🗓️</div><h3 class="vi">Thử thách mỗi ngày</h3><h3 class="en">Daily challenge</h3><p class="vi">Mọi người chơi cùng một thế giới trong ngày để so điểm. Thành tựu, bảng xếp hạng tuỳ chọn, xem lại hành trình.</p><p class="en">Everyone plays the same world that day and compares scores. Achievements, optional leaderboards, journey replay.</p></div>
+    <div class="card"><div class="ic">🔒</div><h3 class="vi">Riêng tư, không tiền thật</h3><h3 class="en">Private, no real money</h3><p class="vi">Chơi offline được. Không giao dịch tiền thật, không kết nối sàn. Quảng cáo chỉ là quảng cáo thưởng bạn tự chọn xem.</p><p class="en">Plays offline. No real-money trading, no exchange connection. The only ads are rewarded ads you choose to watch.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="vi">Đầu tư vào đâu</span><span class="en">What you can invest in</span></h2>
+  <p class="sub vi">Từ tiết kiệm an toàn đến tài sản biến động mạnh.</p>
+  <p class="sub en">From safe savings to wildly volatile assets.</p>
+  <div class="chips">
+    <span class="chip">🏦 <span class="vi">Tiết kiệm, tiết kiệm kỳ hạn</span><span class="en">Savings, term savings</span></span>
+    <span class="chip">📜 <span class="vi">Trái phiếu, trái phiếu doanh nghiệp</span><span class="en">Bonds, corporate bonds</span></span>
+    <span class="chip">🏛️ <span class="vi">Cổ phiếu ngân hàng, công nghệ, bán lẻ, bất động sản, năng lượng, thép</span><span class="en">Bank, tech, retail, property, energy, steel stocks</span></span>
+    <span class="chip">📊 <span class="vi">Quỹ ETF, S&amp;P 500, quỹ cổ tức</span><span class="en">ETF, S&amp;P 500, dividend fund</span></span>
+    <span class="chip">🥇 <span class="vi">Vàng, quỹ vàng</span><span class="en">Gold, gold fund</span></span>
+    <span class="chip">🪙 Crypto</span>
+    <span class="chip">💱 <span class="vi">Ngoại tệ (USD)</span><span class="en">Foreign currency (USD)</span></span>
+    <span class="chip">🖼️ <span class="vi">Tranh và sưu tầm</span><span class="en">Art and collectibles</span></span>
+    <span class="chip">🏘️ <span class="vi">Phòng trọ, căn hộ, đất nền</span><span class="en">Rooms, apartments, land</span></span>
+    <span class="chip">🧋 <span class="vi">Doanh nghiệp riêng</span><span class="en">Your own businesses</span></span>
+  </div>
+</section>
+
+<section>
+  <div class="split">
+    <div>
+      <h2><span class="vi">Tin tức: tin ai, nghi ai?</span><span class="en">News: who to trust?</span></h2>
+      <p class="lede vi">Mỗi nguồn tin có thành tích riêng, nhưng độ tin cậy thật của từng bản tin bị giấu. Sau mỗi tháng bạn thấy tin có đúng hay sai và tự đánh giá nguồn nào đáng nghe.</p>
+      <p class="lede en">Every source has its own track record, but the true reliability of each story is hidden. After each month you see whether it was right, and judge which sources deserve your attention.</p>
+      <ul class="vi"><li>Chính thống, chuyên gia, người ảnh hưởng, tin đồn, cố vấn</li><li>Chuỗi tin 3 tháng: dấu hiệu, diễn biến, kết quả</li><li>Cảnh báo thiên nga đen và tin vĩ mô</li></ul>
+      <ul class="en"><li>Official, analyst, influencer, rumour, advisor</li><li>3-month story chains: signs, developments, outcome</li><li>Black-swan warnings and macro news</li></ul>
+    </div>
+    <div>
+      <img class="vi" loading="lazy" src="img/vi-news.webp" alt="Màn hình Tin tức" width="480" height="1044">
+      <img class="en" loading="lazy" src="img/en-news.webp" alt="News screen" width="480" height="1044">
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="split rev">
+    <div>
+      <img class="vi" loading="lazy" src="img/vi-picker.webp" alt="Chọn vùng, độ khó và xuất thân" width="480" height="1044">
+      <img class="en" loading="lazy" src="img/en-picker.webp" alt="Choose region, difficulty and background" width="480" height="1044">
+    </div>
+    <div>
+      <h2><span class="vi">Mỗi ván một cuộc đời khác</span><span class="en">A different life every run</span></h2>
+      <p class="lede vi">3 vùng sống, 3 độ khó và nhiều xuất thân cho bạn chơi lại hoài mà không giống nhau.</p>
+      <p class="lede en">3 regions, 3 difficulties and several backgrounds keep replays fresh.</p>
+      <ul class="vi"><li>Xuất thân: Sinh viên mới ra trường, Con nhà khá giả, Dân kỹ thuật, Tay trắng</li><li>Vùng: thành phố lớn, thị trấn, tỉnh lẻ</li><li>Độ khó: dễ, thường, khó (khó thì điểm cao hơn)</li><li>Ván nhanh 15 năm cho lúc có ít thời gian</li></ul>
+      <ul class="en"><li>Backgrounds: Fresh graduate, Well-off family, Techie, Self-made</li><li>Regions: big city, town, countryside</li><li>Difficulty: easy, normal, hard (harder scores higher)</li><li>A 15-year quick run when you are short on time</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <h2>FAQ</h2>
+  <details><summary><span class="vi">Đây có phải lời khuyên đầu tư không?</span><span class="en">Is this investment advice?</span></summary>
+    <p class="vi">Không. Thị trường, tin tức và giá trong game là mô phỏng. Không có giao dịch tiền thật và không kết nối sàn nào.</p>
+    <p class="en">No. Markets, news and prices in the game are simulated. There is no real-money trading and no connection to any exchange.</p></details>
+  <details><summary><span class="vi">Game miễn phí không?</span><span class="en">Is it free?</span></summary>
+    <p class="vi">Chơi miễn phí. Quảng cáo chỉ là quảng cáo thưởng bạn tự chọn xem để đổi lấy lời khuyên hay cơ hội thứ hai. Premium (mua một lần) bỏ quảng cáo, thêm lời khuyên và lượt hoàn tác; có thể mua riêng từng xuất thân.</p>
+    <p class="en">Free to play. The only ads are rewarded ads you choose to watch in exchange for advice or a second chance. Premium (one-time purchase) removes ads and adds advice and undos; each background can also be bought on its own.</p></details>
+  <details><summary><span class="vi">Chơi không có mạng được không?</span><span class="en">Can I play offline?</span></summary>
+    <p class="vi">Được. Bảng xếp hạng và sao lưu đám mây là tuỳ chọn khi bạn bật trực tuyến.</p>
+    <p class="en">Yes. Leaderboards and cloud backup are optional when you turn online features on.</p></details>
+  <details><summary><span class="vi">Đổi máy thì ván chơi có mất không?</span><span class="en">Do I lose my game on a new phone?</span></summary>
+    <p class="vi">Ván lưu trên máy. Vào Cài đặt, Sao lưu để chép mã hoặc sao lưu đám mây, rồi khôi phục trên máy mới. Gỡ app mà chưa sao lưu sẽ mất ván.</p>
+    <p class="en">Games are saved on the device. Use Settings, Backup to copy the code or back up to the cloud, then restore on the new phone. Uninstalling without a backup loses the game.</p></details>
+  <details><summary><span class="vi">Dữ liệu của tôi được dùng thế nào?</span><span class="en">How is my data used?</span></summary>
+    <p class="vi">Xem <a href="privacy-policy.html">Chính sách quyền riêng tư</a>. Bạn có thể xoá dữ liệu trực tuyến ngay trong Cài đặt.</p>
+    <p class="en">See the <a href="privacy-policy.html">Privacy Policy</a>. You can delete your online data from Settings at any time.</p></details>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a><a href="privacy-policy.html"><span class="vi">Chính sách quyền riêng tư</span><span class="en">Privacy Policy</span></a><a href="mailto:phuongtdoan2008@gmail.com">phuongtdoan2008@gmail.com</a></p>
+    <p class="vi">Đầu tư từ Đâu là trò chơi mô phỏng, chỉ dùng tiền ảo, không phải lời khuyên tài chính hay đầu tư.</p>
+    <p class="en">Investor Life is a simulation game with virtual money only. It is not financial or investment advice.</p>
+    <p>2026 Doan Thanh Phuong</p>
+  </div>
+</footer>
+
+<script>
+  // Ngôn ngữ: lần đầu theo trình duyệt (vi thì tiếng Việt, còn lại tiếng Anh), sau đó nhớ lựa chọn.
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('lang'), saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    function set(l) {
+      root.lang = l;
+      try { localStorage.setItem('lang', l); } catch (e) {}
+    }
+    root.lang = saved || ((navigator.language || 'vi').slice(0, 2) === 'vi' ? 'vi' : 'en');
+    btn.addEventListener('click', function () { set(root.lang === 'vi' ? 'en' : 'vi'); });
+  })();
+</script>
 </body>
 </html>
