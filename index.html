@@ -8,7 +8,12 @@
 <meta name="description" content="Đầu tư từ Đâu (Investor Life): trò chơi mô phỏng đời nhà đầu tư. Bắt đầu với 10 triệu ở tuổi 22, đi làm, đầu tư, lập gia đình và tìm tự do tài chính. Chỉ dùng tiền ảo.">
 <meta property="og:title" content="Đầu tư từ Đâu · Investor Life">
 <meta property="og:description" content="Bắt đầu với 10 triệu ở tuổi 22 và tìm tự do tài chính trước tuổi hưu. A personal finance life sim with virtual money.">
-<meta property="og:image" content="https://pcingame.github.io/investor-life-page/img/vi-home.webp">
+<meta property="og:image" content="https://pcingame.github.io/investor-life-page/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://pcingame.github.io/investor-life-page/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="img/icon.png">
 <link rel="apple-touch-icon" href="img/icon.png">
 <meta name="theme-color" content="#12332a">
@@ -214,7 +219,49 @@
   .hero .cta { margin: 0 8px 8px 0; }
   .band .cta { margin: 4px; }
 
+  /* Điện thoại hero: các màn chồng lên nhau, JS bật lần lượt */
+  .scr { position: relative; }
+  .scr img + img { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+  .scr img.on { opacity: 1; }
+  .hero .phone .scr img { animation: none; }
+
+  /* QR chỉ hiện trên máy tính (JS thêm lớp .desk); thẻ khớp máy đang xem được tô viền */
+  .qr { display: none; margin: 4px 0 0; align-items: center; gap: 12px; color: var(--muted); font-size: .86rem; }
+  .qr img { width: 92px; height: 92px; border-radius: 10px; border: 1px solid var(--line); background: #fff; padding: 4px; }
+  .desk .qr { display: flex; }
+  .dl .card.me { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent); }
+  .dl .card.me h3::after { content: attr(data-me); margin-left: 8px; font-size: .72rem; font-weight: 800; background: var(--accent); color: var(--on-accent); border-radius: 999px; padding: 2px 8px; vertical-align: 2px; }
+
+  /* Mini game */
+  .try { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .try { grid-template-columns: 1fr; } }
+  .alloc, .out { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+  .alloc .row { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .alloc .row:last-child { border-bottom: 0; }
+  .alloc label { font-weight: 700; }
+  .alloc .v { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; text-align: right; }
+  .alloc .hint { grid-column: 1 / -1; color: var(--muted); font-size: .82rem; }
+  .alloc input[type=range] { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); height: 28px; }
+  .out { display: flex; flex-direction: column; gap: 6px; }
+  .out .mo { color: var(--muted); font-size: .88rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .out .tot { font-size: clamp(1.8rem, 5vw, 2.4rem); font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+  .out .chg { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .out .chg.u { color: #1f9d63; } .out .chg.d { color: #d6455d; }
+  #t-chart { width: 100%; height: 90px; margin: 6px 0; overflow: visible; }
+  #t-line { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+  #t-base { stroke: var(--line); stroke-dasharray: 4 4; vector-effect: non-scaling-stroke; }
+  .out .news { min-height: 3em; background: var(--soft); border-radius: 12px; padding: 8px 12px; font-size: .92rem; }
+  .out .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .out button.cta { border: 0; font: inherit; font-weight: 700; cursor: pointer; min-height: 46px; }
+  .out button.cta.ghost { border: 1px solid var(--line); margin-left: 0; }
+  .out button.cta:disabled { opacity: .45; cursor: default; }
+  .out .end p { margin: 8px 0 10px; font-weight: 600; }
+
   @media (prefers-reduced-motion: no-preference) {
+    @keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.06); } 100% { transform: scale(1); } }
+    .hero .phone .scr { animation: bob 6s ease-in-out 1.2s infinite; }
+    .out .tot.b { animation: bump .45s ease; }
+    .out .news.b { animation: up .4s ease both; }
     @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(31,157,99,.6); } 80%, 100% { box-shadow: 0 0 0 10px rgba(31,157,99,0); } }
     @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
@@ -262,13 +309,25 @@
         <span class="badge">📴 <span class="vi">Chơi offline được</span><span class="en">Plays offline</span></span>
         <span class="badge">🇻🇳 <span class="vi">Tiếng Việt · English</span><span class="en">Vietnamese · English</span></span>
       </div>
-      <a class="cta" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 <span class="vi">Tải trên App Store</span><span class="en">Get it on the App Store</span></a>
-      <a class="cta" href="android.html">🤖 <span class="vi">Tải cho Android</span><span class="en">Download for Android</span></a>
-      <a class="cta ghost" href="#howto"><span class="vi">Xem cách chơi</span><span class="en">See how to play</span></a>
+      <span class="ctas">
+      <a class="cta" id="cta-ios" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 <span class="vi">Tải trên App Store</span><span class="en">Get it on the App Store</span></a>
+      <a class="cta" id="cta-android" href="android.html">🤖 <span class="vi">Tải cho Android</span><span class="en">Download for Android</span></a>
+      </span>
+      <a class="cta ghost" href="#try">🎲 <span class="vi">Chơi thử 1 năm</span><span class="en">Try one year</span></a>
     </div>
     <div class="phone">
-      <img class="vi" src="img/vi-home.webp" alt="Màn hình Trang chủ: tổng tài sản, mục tiêu và nút Tháng tới" width="480" height="1044">
-      <img class="en" src="img/en-home.webp" alt="Home screen: total assets, goal progress and the Next month button" width="480" height="1044">
+      <div class="scr vi">
+        <img src="img/vi-home.webp" alt="Màn hình Trang chủ: tổng tài sản, mục tiêu và nút Tháng tới" width="480" height="1044">
+        <img loading="lazy" src="img/vi-market.webp" alt="Thị trường" width="480" height="1044">
+        <img loading="lazy" src="img/vi-news.webp" alt="Tin tức" width="480" height="1044">
+        <img loading="lazy" src="img/vi-business.webp" alt="Kinh doanh" width="480" height="1044">
+      </div>
+      <div class="scr en">
+        <img src="img/en-home.webp" alt="Home screen: total assets, goal progress and the Next month button" width="480" height="1044">
+        <img loading="lazy" src="img/en-market.webp" alt="Market" width="480" height="1044">
+        <img loading="lazy" src="img/en-news.webp" alt="News" width="480" height="1044">
+        <img loading="lazy" src="img/en-business.webp" alt="Business" width="480" height="1044">
+      </div>
     </div>
   </div>
 </div>
@@ -345,6 +404,31 @@
       <p class="vi">Đạt tự do tài chính sớm, hoặc nghỉ hưu ở tuổi 60 trong trạng thái khoẻ và còn người thân bên cạnh. Cuối ván so với người chỉ mua quỹ chỉ số trong cùng thế giới.</p>
       <p class="en">Reach financial freedom early, or retire at 60 healthy and with people around you. At the end, compare yourself with someone who only held an index fund in the same world.</p></li>
   </ol>
+</section>
+
+<section id="try">
+  <p class="eyebrow"><span class="vi">Chơi thử</span><span class="en">Try it</span></p>
+  <h2><span class="vi">Bạn sẽ chia 10 triệu thế nào?</span><span class="en">How would you split 10 million?</span></h2>
+  <p class="sub vi">Kéo thanh để chia tiền, rồi bấm Tháng tới 12 lần. Đây là bản rút gọn: trong game còn lương, chi tiêu, nhà đất, kinh doanh, gia đình và 38 năm nữa.</p>
+  <p class="sub en">Drag the sliders to split your money, then tap Next month 12 times. This is a tiny version: the game adds salary, costs, property, business, family and 38 more years.</p>
+  <div class="try">
+    <div class="alloc" id="alloc"></div>
+    <div class="out">
+      <div class="mo" id="t-mo"></div>
+      <div class="tot" id="t-tot"></div>
+      <div class="chg" id="t-chg"></div>
+      <svg id="t-chart" viewBox="0 0 300 90" preserveAspectRatio="none" aria-hidden="true"><line x1="0" x2="300" id="t-base"/><polyline id="t-line" points=""/></svg>
+      <div class="news" id="t-news" aria-live="polite"></div>
+      <div class="btns">
+        <button type="button" class="cta" id="t-next"></button>
+        <button type="button" class="cta ghost" id="t-reset"></button>
+      </div>
+      <div class="end" id="t-end" hidden>
+        <p id="t-endtxt"></p>
+        <a class="cta" href="#download">⬇️ <span class="vi">Tải game, sống trọn đời</span><span class="en">Get the game, live a whole life</span></a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section>
@@ -502,6 +586,7 @@
       <h3>iPhone</h3>
       <ul class="vi"><li>Tải trên App Store</li><li>Mua Premium, xuất thân qua App Store</li><li>Liên kết Apple hoặc Google</li></ul>
       <ul class="en"><li>Get it on the App Store</li><li>Premium and backgrounds via the App Store</li><li>Link Apple or Google</li></ul>
+      <figure class="qr"><img src="img/qr-ios.svg" alt="QR App Store" width="132" height="132"><figcaption class="vi">Quét bằng camera iPhone</figcaption><figcaption class="en">Scan with your iPhone camera</figcaption></figure>
       <a class="cta" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 App Store</a>
     </div>
     <div class="card">
@@ -509,6 +594,7 @@
       <h3>Android</h3>
       <ul class="vi"><li>Tải file APK trực tiếp (chưa có trên Google Play)</li><li>Mua bằng chuyển khoản ngân hàng, quét mã QR, tự mở khoá sau vài giây</li><li>Bản mới cài đè lên được, không mất ván</li></ul>
       <ul class="en"><li>Direct APK download (not on Google Play yet)</li><li>Pay by bank transfer: scan a QR, unlocks in seconds</li><li>New versions install over the old one, your game stays</li></ul>
+      <figure class="qr"><img src="img/qr-android.svg" alt="QR Android" width="132" height="132"><figcaption class="vi">Quét bằng camera điện thoại Android</figcaption><figcaption class="en">Scan with your Android camera</figcaption></figure>
       <a class="cta" href="android.html">⬇️ <span class="vi">Tải APK</span><span class="en">Get the APK</span></a>
     </div>
   </div>
@@ -621,6 +707,109 @@
         em.classList.add('f');
       }
     }, 1600);
+  })();
+
+  // Nút tải theo máy: iPhone thì App Store lên trước, Android thì APK; máy tính hiện QR.
+  (function () {
+    var ua = navigator.userAgent, root = document.documentElement;
+    var ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var android = /Android/.test(ua);
+    if (!ios && !android) { root.classList.add('desk'); return; }
+    var mine = document.getElementById(ios ? 'cta-ios' : 'cta-android');
+    var other = document.getElementById(ios ? 'cta-android' : 'cta-ios');
+    mine.parentNode.insertBefore(mine, mine.parentNode.firstChild);
+    other.classList.add('ghost');
+    var card = document.querySelectorAll('.dl .card')[ios ? 0 : 1];
+    card.classList.add('me');
+    card.querySelector('h3').dataset.me = root.lang === 'vi' ? 'Máy của bạn' : 'Your device';
+  })();
+
+  // Điện thoại hero: đổi màn mỗi 3,2 giây (ảnh đầu luôn nằm dưới làm nền).
+  (function () {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var i = 0;
+    setInterval(function () {
+      if (document.hidden) return;
+      i = (i + 1) % 4;
+      document.querySelectorAll('.hero .scr').forEach(function (s) {
+        Array.prototype.forEach.call(s.children, function (img, k) { img.classList.toggle('on', k > 0 && k === i); });
+      });
+    }, 3200);
+  })();
+
+  // Mini game "Chơi thử 1 năm". Lợi suất tháng ngẫu nhiên (minh hoạ), không phải mô hình trong game.
+  (function () {
+    var root = document.documentElement;
+    var A = [
+      { k: 's', e: '🏦', vi: 'Tiết kiệm', en: 'Savings', hv: 'An toàn, lãi ít', he: 'Safe, small yield', mu: 0.45, sd: 0 },
+      { k: 'k', e: '📈', vi: 'Cổ phiếu', en: 'Stocks', hv: 'Lên xuống vừa', he: 'Moderate swings', mu: 0.9, sd: 5 },
+      { k: 'g', e: '🥇', vi: 'Vàng', en: 'Gold', hv: 'Giữ giá khi bất ổn', he: 'Holds up in turmoil', mu: 0.5, sd: 3 },
+      { k: 'c', e: '🪙', vi: 'Crypto', en: 'Crypto', hv: 'Lên xuống cực mạnh', he: 'Wild swings', mu: 1.5, sd: 18 }
+    ];
+    var EV = [
+      { vi: '📉 Chứng khoán lao dốc vì lo suy thoái.', en: '📉 Stocks tumble on recession fears.', fx: { k: -13, g: 4 } },
+      { vi: '🏦 Lãi suất giảm, cổ phiếu tăng mạnh.', en: '🏦 Rates cut, stocks rally.', fx: { k: 10 } },
+      { vi: '🚀 Crypto bùng nổ, ai cũng bàn tán.', en: '🚀 Crypto explodes, everyone is talking.', fx: { c: 45 } },
+      { vi: '💥 Sàn crypto lớn sụp đổ.', en: '💥 A big crypto exchange collapses.', fx: { c: -45 } },
+      { vi: '🌍 Thế giới bất ổn, vàng lập đỉnh.', en: '🌍 Global turmoil, gold hits a record.', fx: { g: 8, k: -4 } }
+    ];
+    var CALM = { vi: '☕ Một tháng khá yên ả.', en: '☕ A fairly quiet month.' };
+    var START = 10e6, w = [40, 30, 20, 10], hist, news, $ = function (id) { return document.getElementById(id); };
+    var box = $('alloc');
+    if (!box) return;
+    function L() { return root.lang === 'vi' ? 'vi' : 'en'; }
+    function money(v) { return Math.round(v).toLocaleString(L() === 'vi' ? 'vi-VN' : 'en-US') + (L() === 'vi' ? ' đ' : ' ₫'); }
+    function gauss() { var u = 1 - Math.random(), v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+    function sum() { return w.reduce(function (a, b) { return a + b; }, 0) || 1; }
+
+    function build() {
+      box.innerHTML = '';
+      A.forEach(function (a, i) {
+        var row = document.createElement('div');
+        row.className = 'row';
+        row.innerHTML = '<label for="t-' + a.k + '">' + a.e + ' ' + a[L()] + '</label><span class="v" id="tv-' + a.k + '"></span>' +
+          '<input type="range" id="t-' + a.k + '" min="0" max="100" step="5" value="' + w[i] + '"><span class="hint">' + (L() === 'vi' ? a.hv : a.he) + '</span>';
+        row.querySelector('input').addEventListener('input', function (e) { w[i] = +e.target.value; render(); });
+        box.appendChild(row);
+      });
+    }
+    function render(bump) {
+      var cur = hist[hist.length - 1], m = hist.length - 1, d = cur / START - 1, s = sum();
+      A.forEach(function (a, i) { $('tv-' + a.k).textContent = Math.round(w[i] / s * 100) + '% · ' + money(cur * w[i] / s); });
+      $('t-mo').textContent = (L() === 'vi' ? 'Tháng ' : 'Month ') + m + ' / 12';
+      $('t-tot').textContent = money(cur);
+      var c = $('t-chg');
+      c.textContent = (d >= 0 ? '▲ +' : '▼ ') + (d * 100).toFixed(1).replace('.', L() === 'vi' ? ',' : '.') + '%';
+      c.className = 'chg ' + (d >= 0 ? 'u' : 'd');
+      $('t-news').textContent = news ? news[L()] : (L() === 'vi' ? '👆 Chia tiền xong thì bấm Tháng tới.' : '👆 Split your money, then tap Next month.');
+      var lo = Math.min.apply(null, hist.concat(START)), hi = Math.max.apply(null, hist.concat(START)), r = (hi - lo) || 1;
+      var y = function (v) { return (85 - (v - lo) / r * 80).toFixed(1); };
+      $('t-line').setAttribute('points', hist.map(function (v, k) { return (k * 25) + ',' + y(v); }).join(' '));
+      $('t-base').setAttribute('y1', y(START)); $('t-base').setAttribute('y2', y(START));
+      $('t-next').textContent = '▶ ' + (L() === 'vi' ? 'Tháng tới' : 'Next month');
+      $('t-reset').textContent = '↺ ' + (L() === 'vi' ? 'Làm lại' : 'Restart');
+      $('t-next').disabled = m >= 12;
+      $('t-end').hidden = m < 12;
+      if (m >= 12) $('t-endtxt').textContent = d >= 0
+        ? (L() === 'vi' ? '🎉 Sau 1 năm bạn lãi ' + money(cur - START) + '. Trong game còn lương, nhà đất, kinh doanh và 37 năm nữa để tới tự do tài chính.' : '🎉 After one year you are up ' + money(cur - START) + '. The game adds salary, property, business and 37 more years to reach financial freedom.')
+        : (L() === 'vi' ? '😅 Sau 1 năm bạn lỗ ' + money(START - cur) + '. Không sao, tiền ảo mà. Trong game bạn còn 37 năm để gỡ.' : '😅 After one year you are down ' + money(START - cur) + '. No worries, it is virtual money. The game gives you 37 more years.');
+      if (bump) ['t-tot', 't-news'].forEach(function (id) { var el = $(id); el.classList.remove('b'); void el.offsetWidth; el.classList.add('b'); });
+    }
+    function next() {
+      var cur = hist[hist.length - 1], s = sum(), ev = Math.random() < 0.35 ? EV[Math.floor(Math.random() * EV.length)] : null, fx = ev ? ev.fx : {};
+      var nv = A.reduce(function (t, a, i) {
+        var ret = (a.mu + a.sd * gauss() + (fx[a.k] || 0)) / 100;
+        return t + cur * w[i] / s * Math.max(0.1, 1 + ret);
+      }, 0);
+      news = ev || CALM;
+      hist.push(nv);
+      render(true);
+    }
+    function reset() { hist = [START]; news = null; render(); }
+    $('t-next').addEventListener('click', next);
+    $('t-reset').addEventListener('click', reset);
+    document.getElementById('lang').addEventListener('click', function () { setTimeout(function () { build(); render(); }, 0); });
+    build(); reset();
   })();
 
   // Hiện dần khi cuộn tới; thanh tiến độ cuộn ở mép trên.
