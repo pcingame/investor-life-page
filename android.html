@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<!-- Trang tải bản Android (APK tự phát hành qua GitHub Release của repo này). Song ngữ vi/en như index.html. -->
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tải cho Android · Đầu tư từ Đâu</title>
+<meta name="description" content="Đầu tư từ Đâu (Investor Life): trò chơi mô phỏng đời nhà đầu tư. Bắt đầu với 10 triệu ở tuổi 22, đi làm, đầu tư, lập gia đình và tìm tự do tài chính. Chỉ dùng tiền ảo.">
+<meta property="og:title" content="Đầu tư từ Đâu · Investor Life">
+<meta property="og:description" content="Bắt đầu với 10 triệu ở tuổi 22 và tìm tự do tài chính trước tuổi hưu. A personal finance life sim with virtual money.">
+<meta property="og:image" content="https://pcingame.github.io/investor-life-page/img/vi-home.webp">
+<link rel="icon" href="img/icon.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<meta name="theme-color" content="#12332a">
+<style>
+  :root {
+    --bg: #f6f7fb; --card: #ffffff; --text: #1d2230; --muted: #667089;
+    --line: #e1e5ee; --accent: #1f7a5c; --accent-2: #3b6fd8; --soft: #e8f5ef;
+    --on-accent: #ffffff;
+    --hero: linear-gradient(135deg, #cfeee0 0%, #d7e2fb 100%);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1017; --card: #161a24; --text: #e7e9f1; --muted: #98a0b6;
+      --line: #262c3a; --accent: #7fd6b3; --accent-2: #8fb4ff; --soft: #14251f;
+      --on-accent: #0d1017;
+      --hero: linear-gradient(135deg, #12332a 0%, #1a2548 100%);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.65 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  a { color: var(--accent-2); }
+  img { max-width: 100%; display: block; height: auto; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+  html[lang="vi"] .en, html[lang="en"] .vi { display: none !important; }
+
+  header.top {
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--line);
+  }
+  header.top .wrap { display: flex; align-items: center; gap: 18px; height: 58px; }
+  header.top .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; color: var(--text); text-decoration: none; }
+  header.top .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  header.top nav { margin-left: auto; display: flex; gap: 16px; font-size: .92rem; align-items: center; }
+  header.top nav a { color: var(--muted); text-decoration: none; }
+  header.top nav a:hover { color: var(--text); }
+  #lang { border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 4px 12px; font: inherit; font-size: .85rem; cursor: pointer; }
+  @media (max-width: 640px) { header.top nav a.hide-s { display: none; } }
+
+  .hero { background: var(--hero); overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding-top: 48px; padding-bottom: 0; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -.02em; }
+  .hero .lead { font-size: 1.2rem; color: var(--muted); margin: 0 0 20px; max-width: 34em; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .badge { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .88rem; }
+  .cta { display: inline-block; background: var(--accent); color: var(--on-accent); padding: 12px 22px; border-radius: 14px; font-weight: 700; text-decoration: none; }
+  .cta.ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-left: 8px; }
+  .hero .phone { justify-self: center; width: min(300px, 80%); margin-top: 8px; }
+  .hero .phone img { border-radius: 28px 28px 0 0; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  @media (max-width: 760px) { .hero .wrap { grid-template-columns: 1fr; padding-top: 32px; } }
+
+  section { padding: 56px 0 8px; }
+  h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); margin: 0 0 8px; letter-spacing: -.01em; }
+  .sub { color: var(--muted); margin: 0 0 24px; max-width: 40em; }
+
+  .shots { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 8px 20px 20px; margin: 0 -20px; }
+  .shot { flex: 0 0 230px; scroll-snap-align: start; margin: 0; }
+  .shot img { border-radius: 22px; border: 1px solid var(--line); }
+  .shot figcaption { font-size: .88rem; color: var(--muted); margin-top: 8px; text-align: center; }
+
+  .steps { counter-reset: s; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; padding: 0; list-style: none; margin: 0; }
+  .steps li { counter-increment: s; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .steps li::before { content: counter(s); display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--on-accent); font-weight: 800; margin-bottom: 8px; }
+  .steps b { display: block; margin-bottom: 4px; }
+  .steps p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+  .card .ic { font-size: 1.7rem; line-height: 1; margin-bottom: 8px; }
+  .card h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+  .split { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: center; }
+  .split.rev { grid-template-columns: 260px 1fr; }
+  .split img { border-radius: 22px; border: 1px solid var(--line); }
+  .split .lede { color: var(--muted); }
+  @media (max-width: 760px) { .split, .split.rev { grid-template-columns: 1fr; } .split img { max-width: 260px; margin: 0 auto; } }
+  .split ul { padding-left: 1.2em; margin: 8px 0 0; }
+  .split li { margin: .35em 0; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { background: var(--soft); border-radius: 999px; padding: 4px 12px; font-size: .9rem; }
+
+  .tips { background: var(--soft); border-radius: 18px; padding: 22px 24px; }
+  .tips ul { margin: 8px 0 0; padding-left: 1.2em; }
+  .tips li { margin: .4em 0; }
+
+  details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  details p { margin: 8px 0 0; color: var(--muted); }
+
+  footer { margin-top: 64px; border-top: 1px solid var(--line); padding: 28px 0 48px; color: var(--muted); font-size: .92rem; }
+  footer a { margin-right: 16px; }
+
+  /* Chuyển động: chỉ bật khi có JS (lớp .js) và người dùng không tắt hiệu ứng trong hệ thống. */
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes up { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(70px) scale(.96); } to { opacity: 1; transform: none; } }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes drift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes pop { 0% { transform: scale(.6); opacity: 0; } 70% { transform: scale(1.12); } 100% { transform: none; opacity: 1; } }
+
+    .hero { background-size: 220% 220%; animation: drift 18s ease-in-out infinite; }
+    .hero h1, .hero .lead, .hero .badges, .hero .cta { animation: up .7s cubic-bezier(.2,.7,.2,1) both; }
+    .hero h1 { animation-delay: .05s; }
+    .hero .lead { animation-delay: .15s; }
+    .hero .badges { animation-delay: .25s; }
+    .hero .cta { animation-delay: .35s; }
+    .hero .cta.ghost { animation-delay: .42s; }
+    .hero .phone { animation: rise .9s cubic-bezier(.2,.7,.2,1) .2s both; }
+    .hero .phone img { animation: bob 6s ease-in-out 1.2s infinite; }
+
+    .js .rv { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+    .js .rv.in { opacity: 1; transform: none; }
+    .js .steps li.rv.in::before { animation: pop .5s cubic-bezier(.2,.7,.2,1) calc(var(--d, 0s) + .15s) both; }
+
+    .card, .steps li, .chip, .cta, .shot img, .split img { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease; }
+    .card:hover, .steps li:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.14); border-color: var(--accent); }
+    .chip:hover { transform: translateY(-2px) scale(1.04); }
+    .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(31,122,92,.35); }
+    .shot img:hover, .split img:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,.28); }
+    .card:hover .ic { animation: bob 1.2s ease-in-out infinite; }
+    details { transition: border-color .25s ease; }
+    details[open] { border-color: var(--accent); }
+    details[open] > p { animation: up .35s ease both; }
+  }
+
+  #bar { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); z-index: 20; pointer-events: none; }
+
+  /* Trau chuốt: khung điện thoại, nhãn mục, số liệu, sơ đồ vòng lặp, khối kêu gọi */
+  .eyebrow { font-size: .76rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); font-weight: 800; margin: 0 0 6px; }
+  h1 .g { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero { position: relative; }
+  .hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; filter: blur(70px); opacity: .5; pointer-events: none; }
+  .hero::before { width: 320px; height: 320px; background: var(--accent); top: -80px; left: -60px; opacity: .22; }
+  .hero::after { width: 380px; height: 380px; background: var(--accent-2); bottom: -140px; right: -80px; opacity: .22; }
+  .hero .wrap { position: relative; z-index: 1; }
+
+  .shot img, .split img, .hero .phone img { border: 6px solid #0b0d12; background: #0b0d12; }
+  .hero .phone img { border-bottom: 0; }
+  .shot img, .split img { border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+
+  .stats { background: var(--card); border-bottom: 1px solid var(--line); }
+  .stats .wrap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-top: 22px; padding-bottom: 22px; text-align: center; }
+  .stats b { display: block; font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.1; font-variant-numeric: tabular-nums; background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stats span { font-size: .86rem; color: var(--muted); }
+  @media (max-width: 560px) { .stats .wrap { grid-template-columns: repeat(2, 1fr); gap: 16px 8px; } }
+
+  .carousel { position: relative; }
+  .carousel .shots { -webkit-mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 48px), transparent); scrollbar-width: none; }
+  .carousel .shots::-webkit-scrollbar { display: none; }
+  .arrow { position: absolute; top: 42%; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--text); font-size: 1.1rem; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.2); z-index: 2; }
+  .arrow.l { left: -6px; } .arrow.r { right: -6px; }
+  .arrow:hover { background: var(--accent); color: var(--on-accent); }
+  @media (hover: none) { .arrow { display: none; } }
+
+  .loop { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 10px; margin: 0 0 22px; }
+  .loop .n { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; font-weight: 700; font-size: .95rem; }
+  .loop .a { color: var(--accent); font-weight: 800; }
+
+  .band { margin-top: 56px; text-align: center; border-radius: 24px; padding: 44px 24px; background: var(--hero); border: 1px solid var(--line); }
+  .band h2 { margin-bottom: 8px; }
+  .band p { color: var(--muted); max-width: 34em; margin: 0 auto 20px; }
+
+  #lang { display: inline-flex; padding: 2px; gap: 2px; }
+  #lang span { padding: 3px 11px; border-radius: 999px; font-weight: 700; color: var(--muted); }
+  html[lang="vi"] #lang .l-vi, html[lang="en"] #lang .l-en { background: var(--accent); color: var(--on-accent); }
+  header.top nav a.cur { color: var(--text); font-weight: 700; }
+
+  .dl { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; margin: 24px 0; }
+  .dl .cta { margin-top: 12px; }
+  ol.install li { margin-bottom: 14px; }
+  code.fp { word-break: break-all; font-size: 13px; }
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/icon.png" alt="" width="30" height="30"><span>Đầu tư từ Đâu</span></a>
+    <nav>
+      <a href="index.html"><span class="vi">Trang chủ</span><span class="en">Home</span></a>
+      <a href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a>
+      <button id="lang" type="button" aria-label="Language"><span class="l-vi">VI</span><span class="l-en">EN</span></button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+<section>
+  <h1><span class="vi">Đầu tư từ Đâu cho Android</span><span class="en">Investor Life for Android</span></h1>
+  <p>
+    <span class="vi">Game chưa có trên Google Play nên bạn tải file cài đặt (APK) trực tiếp từ nhà phát triển. Miễn phí, cài một lần là chơi.</span>
+    <span class="en">The game is not on Google Play yet, so you download the installer (APK) straight from the developer. Free, install once and play.</span>
+  </p>
+  <div class="dl">
+    <strong><span class="vi">Bản mới nhất</span><span class="en">Latest version</span><span id="ver"></span></strong><br>
+    <span class="vi">Android 7.0 trở lên · khoảng 75 MB · miễn phí</span>
+    <span class="en">Android 7.0 or later · about 75 MB · free</span><br>
+    <a class="cta" id="dl" href="https://github.com/pcingame/investor-life-page/releases/latest/download/dau-tu-tu-dau.apk" rel="noopener"><span class="vi">⬇ Tải file APK</span><span class="en">⬇ Download APK</span></a>
+    <details id="news" hidden>
+      <summary><span class="vi">Có gì mới</span><span class="en">What's new</span></summary>
+      <p id="notes" style="white-space:pre-line"></p>
+    </details>
+  </div>
+  <p>
+    <span class="vi">Dùng iPhone? <a href="https://apps.apple.com/app/id6826599388" rel="noopener">Tải trên App Store</a>. Đang xem trên máy tính? Mở trang này trên điện thoại Android để tải thẳng về máy.</span>
+    <span class="en">On iPhone? <a href="https://apps.apple.com/app/id6826599388" rel="noopener">Get it on the App Store</a>. On a computer? Open this page on your Android phone to download there.</span>
+  </p>
+
+  <h2><span class="vi">Cài đặt trong 4 bước</span><span class="en">Install in 4 steps</span></h2>
+  <p>
+    <span class="vi">Vì không qua Google Play, Android sẽ hỏi vài lần. Đây là thông báo bình thường với mọi app tải ngoài cửa hàng.</span>
+    <span class="en">Since it doesn't come from Google Play, Android will ask a few times. This is normal for any app installed outside the store.</span>
+  </p>
+  <ol class="install">
+    <li><strong><span class="vi">Bấm "Tải file APK"</span><span class="en">Tap "Download APK"</span></strong><br>
+      <span class="vi">Nếu trình duyệt báo "File này có thể gây hại", chọn <strong>Vẫn tải xuống</strong>.</span>
+      <span class="en">If the browser warns "This file might be harmful", choose <strong>Download anyway</strong>.</span></li>
+    <li><strong><span class="vi">Mở file vừa tải</span><span class="en">Open the downloaded file</span></strong><br>
+      <span class="vi">Bấm vào thông báo tải xong, hoặc mở ứng dụng <strong>Tệp / Quản lý tệp</strong> → thư mục <strong>Download</strong> → <strong>dau-tu-tu-dau.apk</strong>.</span>
+      <span class="en">Tap the download-complete notification, or open the <strong>Files</strong> app → <strong>Download</strong> → <strong>dau-tu-tu-dau.apk</strong>.</span></li>
+    <li><strong><span class="vi">Cho phép cài ứng dụng</span><span class="en">Allow installing apps</span></strong><br>
+      <span class="vi">Lần đầu, máy hỏi có cho trình duyệt (hoặc Quản lý tệp) cài ứng dụng không. Bấm <strong>Cài đặt</strong> → bật <strong>Cho phép từ nguồn này</strong> → quay lại.</span>
+      <span class="en">The first time, your phone asks whether the browser (or Files app) may install apps. Tap <strong>Settings</strong> → turn on <strong>Allow from this source</strong> → go back.</span></li>
+    <li><strong><span class="vi">Cài và chơi</span><span class="en">Install and play</span></strong><br>
+      <span class="vi">Bấm <strong>Cài đặt</strong>. Nếu Google Play Protect cảnh báo ứng dụng lạ, chọn <strong>Thêm chi tiết</strong> → <strong>Vẫn cài đặt</strong>.</span>
+      <span class="en">Tap <strong>Install</strong>. If Google Play Protect warns about an unknown app, choose <strong>More details</strong> → <strong>Install anyway</strong>.</span></li>
+  </ol>
+  <p>
+    <span class="vi"><strong>Máy Xiaomi / Redmi / POCO:</strong> máy có thể quét bảo mật hoặc đếm ngược vài giây trước khi cho cài, đợi hết rồi bấm <strong>Tiếp tục</strong>.</span>
+    <span class="en"><strong>Xiaomi / Redmi / POCO:</strong> the phone may run a security scan or count down a few seconds; wait, then tap <strong>Continue</strong>.</span>
+  </p>
+
+  <h2><span class="vi">Câu hỏi thường gặp</span><span class="en">FAQ</span></h2>
+  <details>
+    <summary><span class="vi">Cập nhật bản mới thế nào?</span><span class="en">How do I update?</span></summary>
+    <p><span class="vi">Quay lại trang này, tải file APK mới và cài <strong>đè</strong> lên bản cũ, ván chơi giữ nguyên. <strong>Đừng gỡ game trước khi cài:</strong> gỡ là xoá hết dữ liệu trên máy (hãy sao lưu trong Cài đặt trước).</span>
+    <span class="en">Come back here, download the new APK and install it <strong>over</strong> the old one; your game is kept. <strong>Don't uninstall first:</strong> that deletes your data on the phone (back up in Settings first).</span></p>
+  </details>
+  <details>
+    <summary><span class="vi">Mua Premium hoặc xuất thân thế nào?</span><span class="en">How do I buy Premium or a background?</span></summary>
+    <p><span class="vi">Bấm nút Mua trong game, game hiện mã QR. Quét bằng app ngân hàng bất kỳ và <strong>giữ nguyên nội dung chuyển khoản</strong> (mã bắt đầu bằng IL). Khoảng 1 phút sau gói tự mở. Lỡ đóng game thì lần mở sau gói vẫn được trao; chưa thấy thì bấm <strong>Khôi phục giao dịch</strong>. Chỉ hỗ trợ tài khoản ngân hàng Việt Nam.</span>
+    <span class="en">Tap Buy in the game and it shows a QR code. Scan it with any Vietnamese banking app and <strong>keep the transfer note unchanged</strong> (a code starting with IL). About a minute later it unlocks. If you closed the game, it is delivered next time; otherwise tap <strong>Restore purchases</strong>. Vietnamese bank accounts only.</span></p>
+  </details>
+  <details>
+    <summary><span class="vi">Chuyển khoản rồi mà chưa nhận gói?</span><span class="en">Paid but didn't get it?</span></summary>
+    <p><span class="vi">Mở lại game hoặc bấm <strong>Khôi phục giao dịch</strong>. Vẫn chưa có thì gửi email kèm ảnh chụp giao dịch (giờ chuyển, số tiền, nội dung) tới <a href="mailto:phuongtdoan2008@gmail.com">phuongtdoan2008@gmail.com</a>, chúng tôi đối chiếu và mở tay.</span>
+    <span class="en">Reopen the game or tap <strong>Restore purchases</strong>. Still missing? Email a screenshot of the transfer (time, amount, note) to <a href="mailto:phuongtdoan2008@gmail.com">phuongtdoan2008@gmail.com</a> and we'll unlock it by hand.</span></p>
+  </details>
+  <details>
+    <summary><span class="vi">File APK có an toàn không?</span><span class="en">Is the APK safe?</span></summary>
+    <p><span class="vi">Chỉ tải từ trang này: file nằm trên GitHub của nhà phát triển (pcingame) và được ký bằng chứng chỉ riêng. Android từ chối cài đè nếu ai đó sửa file. Dấu vân tay chứng chỉ (SHA-256):</span>
+    <span class="en">Only download from this page: the file is hosted on the developer's GitHub (pcingame) and signed with our own certificate. Android refuses to install over the game if anyone tampers with it. Certificate fingerprint (SHA-256):</span>
+    <br><code class="fp">E1:5C:E0:F4:B2:36:CC:3E:5A:60:B7:67:4A:46:2D:35:2E:45:CD:A1:41:46:48:1D:82:15:D5:13:A1:FD:70:43</code></p>
+  </details>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a><a href="privacy-policy.html"><span class="vi">Chính sách quyền riêng tư</span><span class="en">Privacy Policy</span></a><a href="https://www.facebook.com/investorlife.vn">Facebook</a><a href="mailto:phuongtdoan2008@gmail.com">phuongtdoan2008@gmail.com</a></p>
+    <p class="vi">Đầu tư từ Đâu là trò chơi mô phỏng, chỉ dùng tiền ảo, không phải lời khuyên tài chính hay đầu tư.</p>
+    <p class="en">Investor Life is a simulation game with virtual money only. It is not financial or investment advice.</p>
+    <p>2026 Doan Thanh Phuong</p>
+  </div>
+</footer>
+
+<script>
+  // Số bản, ngày ra và ghi chú lấy từ GitHub Release mới nhất; lỗi mạng thì giữ chữ tĩnh.
+  fetch('https://api.github.com/repos/pcingame/investor-life-page/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (r) {
+      if (!r) return;
+      document.getElementById('ver').textContent =
+        ': ' + r.tag_name.replace('android-v', '') + ' · ' + new Date(r.published_at).toLocaleDateString('vi-VN');
+      if (r.body) {
+        document.getElementById('notes').textContent = r.body;
+        document.getElementById('news').hidden = false;
+      }
+    })
+    .catch(function () {});
+</script>
+<script>
+  // Ngôn ngữ: lần đầu theo trình duyệt (vi thì tiếng Việt, còn lại tiếng Anh), sau đó nhớ lựa chọn.
+  (function () {
+    var root = document.documentElement, btn = document.getElementById('lang'), saved = null;
+    try { saved = localStorage.getItem('lang'); } catch (e) {}
+    function set(l) {
+      root.lang = l;
+      try { localStorage.setItem('lang', l); } catch (e) {}
+    }
+    root.lang = saved || ((navigator.language || 'vi').slice(0, 2) === 'vi' ? 'vi' : 'en');
+    btn.addEventListener('click', function () { set(root.lang === 'vi' ? 'en' : 'vi'); });
+  })();
+</script>
+</body>
+</html>

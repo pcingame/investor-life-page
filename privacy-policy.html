@@ -33,7 +33,7 @@
 
 <p><a href="./">← Đầu tư từ Đâu</a></p>
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: 24 October 2026</p>
+<p class="updated">Last updated: 16 November 2026</p>
 <p>This policy explains how <strong>pcingame</strong> ("we") handles information in the
 mobile game <strong>Đầu tư từ Đâu</strong> (also called Investor Life, the "App"). The App
 is a simulation that uses virtual money only. It is not financial or investment advice.</p>
@@ -41,10 +41,10 @@ is a simulation that uses virtual money only. It is not financial or investment 
 
 <h2>1. Summary</h2>
 <ul>
-  <li>No sign-up, no email, no real name. Your game is saved <strong>on your device</strong>.</li>
+  <li>No sign-up required, no real name. Your game is saved <strong>on your device</strong>. Linking a Google or Apple account (to recover your data) is optional.</li>
   <li><strong>Online features are optional and off by default.</strong> Only if you turn them
   on does the App send data to our server (section 3).</li>
-  <li>Optional rewarded ads (Google AdMob) and in-app purchases (Apple App Store / Google Play).</li>
+  <li>Optional rewarded ads (Google AdMob on iOS, Unity Ads on Android) and in-app purchases (Apple App Store on iOS, Vietnamese bank transfer on Android).</li>
   <li>We do <strong>not</strong> sell your data.</li>
 </ul>
 
@@ -62,15 +62,20 @@ deletes them. The optional daily reminder is a local notification scheduled on y
   players are hidden.</li>
   <li><strong>Scores and game records</strong> (score, net worth, age, ending, seed and the
   list of in-game moves) for leaderboards and the daily challenge "ghost".</li>
-  <li><strong>Cloud save</strong> of your game, only when you press backup.</li>
+  <li><strong>Linked account (optional)</strong>: if you choose <em>Link account</em> and sign in with
+  Google or Apple, our server stores that account's ID and email address (with Apple you can hide your
+  email). It is used only to give your saved data back on a new device. It is never shown to other
+  players. We do not receive your password.</li>
+  <li><strong>Cloud save</strong> of your game, only when online features are on: saved automatically when the app goes to the background or a game ends, and when you press backup.</li>
+  <li><strong>Recovery code</strong>, only when online features are on: a random code created on your device and kept in the device Keychain (it syncs through iCloud Keychain if you use it) and shown in the app. Our server keeps only a one-way hash of it, used to give your saved data back after you reinstall the app or change phones.</li>
   <li><strong>Anonymous gameplay statistics</strong> (for example when a run starts or ends and
   its result) and <strong>error reports</strong> (error message and stack trace), used to balance
   the game and fix bugs.</li>
 </ul>
-<p>This data is linked to the anonymous ID, not to your identity. It is not used for
-advertising or tracking.</p>
+<p>This data is linked to the anonymous ID. It is linked to your identity only if you link a
+Google or Apple account. It is not used for advertising or tracking.</p>
 <p><strong>Deleting your data:</strong> in the App open <em>Settings (⚙️) → Online → Delete online
-data</em>. This permanently deletes your account, name, scores, cloud save, statistics and
+data</em>. This permanently deletes your account, linked Google/Apple sign-in, name, scores, cloud save, statistics and
 reports from our server and turns online features off. You can also email us (section 9).</p>
 
 <h2>4. Advertising</h2>
@@ -84,10 +89,19 @@ and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
   your IDFA. If you decline, ads are not personalized.</li>
   <li>You can reset or limit your advertising ID in your device settings.</li>
 </ul>
+<p>On Android (the APK downloaded from our website) ads are served by <strong>Unity Ads</strong>
+instead, which may collect the Android advertising ID, IP address and device and interaction data.
+See the <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity privacy policy</a>.</p>
 
 <h2>5. In-app purchases</h2>
-<p>Purchases are processed by Apple or Google. We never see your payment details; the App only
+<p>On iOS, purchases are processed by Apple. We never see your payment details; the App only
 receives a confirmation that you own a product.</p>
+<p>On Android, you pay by <strong>bank transfer</strong>: the App creates an order (a random order code,
+product and price, linked to your anonymous ID) on Supabase and shows a QR code. Our payment
+notification service (<strong>SePay</strong>) tells our server when a transfer with that code reaches
+our bank account; it sees the transfer details your bank sends (amount, note, time and, depending on
+the bank, the sender's name and account). We keep orders for accounting, even if you delete your
+online data (the order is then no longer linked to you).</p>
 
 <h2>6. Children</h2>
 <p>The App is not directed to children under 13. We do not knowingly collect personal information
@@ -95,7 +109,9 @@ from children. If you believe a child has sent us data, contact us and we will d
 
 <h2>7. Sharing and retention</h2>
 <p>We share data only with providers needed to run the App: <strong>Supabase</strong> (online
-features), <strong>Google</strong> (AdMob) and <strong>Apple / Google</strong> (purchases). Online
+features and Android orders), <strong>Google</strong> (AdMob), <strong>Unity</strong> (ads on Android),
+<strong>SePay</strong> (bank transfer notifications on Android) and <strong>Apple / Google</strong>
+(purchases and optional account linking). Online
 data is kept until you delete it in the App or ask us to. Data held by Google or Apple follows
 their own policies.</p>
 
@@ -111,17 +127,17 @@ changes, the date above changes too.</p>
 <hr>
 
 <h1 id="vi">Chính sách quyền riêng tư</h1>
-<p class="updated">Cập nhật lần cuối: 24 tháng 10, 2026</p>
+<p class="updated">Cập nhật lần cuối: 16 tháng 11, 2026</p>
 <p>Chính sách này giải thích cách <strong>pcingame</strong> ("chúng tôi") xử lý thông tin trong
 trò chơi <strong>Đầu tư từ Đâu</strong> (Investor Life, "Ứng dụng"). Đây là trò chơi mô phỏng,
 chỉ dùng tiền ảo, không phải lời khuyên tài chính hay đầu tư.</p>
 
 <h2>1. Tóm tắt</h2>
 <ul>
-  <li>Không đăng ký, không email, không tên thật. Ván chơi lưu <strong>trên máy của bạn</strong>.</li>
+  <li>Không cần đăng ký, không tên thật. Ván chơi lưu <strong>trên máy của bạn</strong>. Liên kết tài khoản Google hoặc Apple (để khôi phục dữ liệu) là tuỳ chọn.</li>
   <li><strong>Tính năng trực tuyến là tuỳ chọn, mặc định tắt.</strong> Chỉ khi bạn bật, Ứng dụng
   mới gửi dữ liệu lên máy chủ (mục 3).</li>
-  <li>Quảng cáo thưởng tự chọn xem (Google AdMob) và mua trong ứng dụng (App Store / Google Play).</li>
+  <li>Quảng cáo thưởng tự chọn xem (Google AdMob trên iOS, Unity Ads trên Android) và mua trong ứng dụng (App Store trên iOS, chuyển khoản ngân hàng trên Android).</li>
   <li>Chúng tôi <strong>không</strong> bán dữ liệu của bạn.</li>
 </ul>
 
@@ -138,13 +154,18 @@ không email, không mật khẩu) trên dịch vụ máy chủ <strong>Supabase
   ngữ xấu; người chơi khác có thể báo cáo; tên bị nhiều người báo cáo sẽ bị ẩn.</li>
   <li><strong>Điểm và ván chơi</strong> (điểm, tài sản, tuổi, kết cục, mã ván và danh sách nước đi)
   cho bảng xếp hạng và "bóng ma" thử thách ngày.</li>
-  <li><strong>Bản lưu đám mây</strong>, chỉ khi bạn bấm sao lưu.</li>
+  <li><strong>Tài khoản liên kết (tuỳ chọn)</strong>: nếu bạn bấm <em>Liên kết tài khoản</em> và đăng nhập
+  Google hoặc Apple, máy chủ lưu mã tài khoản và email của tài khoản đó (với Apple bạn có thể ẩn email).
+  Chỉ dùng để trả lại dữ liệu đã lưu khi bạn đổi máy, không hiện cho người chơi khác. Chúng tôi không
+  nhận mật khẩu của bạn.</li>
+  <li><strong>Bản lưu đám mây</strong>, chỉ khi bạn bật trực tuyến: tự lưu khi app chuyển xuống nền hoặc hết ván, và khi bạn bấm sao lưu.</li>
+  <li><strong>Mã khôi phục</strong>, chỉ khi bạn bật trực tuyến: mã ngẫu nhiên tạo trên thiết bị, giữ trong Keychain của máy (đồng bộ qua iCloud Keychain nếu bạn dùng) và hiện trong app. Máy chủ chỉ giữ bản băm một chiều của mã, dùng để trả lại dữ liệu đã lưu khi bạn cài lại app hoặc đổi máy.</li>
   <li><strong>Thống kê ẩn danh</strong> (ví dụ lúc bắt đầu/kết thúc ván và kết quả) và
   <strong>báo lỗi</strong> (nội dung lỗi, vết ngăn xếp), để cân bằng game và sửa lỗi.</li>
 </ul>
-<p>Dữ liệu gắn với mã ẩn danh, không gắn với danh tính của bạn, không dùng cho quảng cáo hay theo dõi.</p>
+<p>Dữ liệu gắn với mã ẩn danh, chỉ gắn với danh tính của bạn nếu bạn liên kết tài khoản Google hoặc Apple; không dùng cho quảng cáo hay theo dõi.</p>
 <p><strong>Xoá dữ liệu:</strong> trong Ứng dụng vào <em>Cài đặt (⚙️) → Kết nối trực tuyến → Xoá dữ liệu
-trực tuyến</em>. Thao tác xoá vĩnh viễn tài khoản, tên, điểm, bản lưu đám mây, thống kê và báo cáo trên
+trực tuyến</em>. Thao tác xoá vĩnh viễn tài khoản, liên kết Google/Apple, tên, điểm, bản lưu đám mây, thống kê và báo cáo trên
 máy chủ, rồi tắt trực tuyến. Bạn cũng có thể gửi email cho chúng tôi (mục 9).</p>
 
 <h2>4. Quảng cáo</h2>
@@ -158,10 +179,19 @@ Google</a> và <a href="https://policies.google.com/privacy">Chính sách quyề
   IDFA không. Từ chối thì quảng cáo không cá nhân hoá.</li>
   <li>Bạn có thể đặt lại hoặc giới hạn mã quảng cáo trong cài đặt máy.</li>
 </ul>
+<p>Trên Android (bản APK tải từ trang web của chúng tôi), quảng cáo do <strong>Unity Ads</strong> cung
+cấp; Unity có thể thu thập mã quảng cáo Android, địa chỉ IP, thông tin thiết bị và tương tác. Xem
+<a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">chính sách quyền riêng tư của Unity</a>.</p>
 
 <h2>5. Mua trong ứng dụng</h2>
-<p>Giao dịch do Apple hoặc Google xử lý. Chúng tôi không thấy thông tin thanh toán; Ứng dụng chỉ nhận
+<p>Trên iOS, giao dịch do Apple xử lý. Chúng tôi không thấy thông tin thanh toán; Ứng dụng chỉ nhận
 xác nhận bạn sở hữu sản phẩm.</p>
+<p>Trên Android, bạn trả bằng <strong>chuyển khoản ngân hàng</strong>: Ứng dụng tạo một đơn (mã đơn ngẫu
+nhiên, sản phẩm và giá, gắn với mã ẩn danh của bạn) trên Supabase và hiện mã QR. Dịch vụ báo giao dịch
+(<strong>SePay</strong>) báo cho máy chủ khi có khoản chuyển mang mã đó vào tài khoản của chúng tôi; dịch
+vụ này thấy thông tin ngân hàng gửi kèm (số tiền, nội dung, thời gian và tuỳ ngân hàng, tên và số tài
+khoản người chuyển). Đơn được giữ cho sổ sách kể cả khi bạn xoá dữ liệu trực tuyến (khi đó đơn không
+còn gắn với bạn).</p>
 
 <h2>6. Trẻ em</h2>
 <p>Ứng dụng không hướng tới trẻ dưới 13 tuổi. Chúng tôi không cố ý thu thập thông tin cá nhân của trẻ
@@ -169,7 +199,8 @@ em. Nếu bạn cho rằng một trẻ em đã gửi dữ liệu, hãy liên h�
 
 <h2>7. Chia sẻ và lưu giữ</h2>
 <p>Chỉ chia sẻ với các nhà cung cấp cần để chạy Ứng dụng: <strong>Supabase</strong> (trực tuyến),
-<strong>Google</strong> (AdMob), <strong>Apple / Google</strong> (mua hàng). Dữ liệu trực tuyến được giữ
+<strong>Google</strong> (AdMob), <strong>Unity</strong> (quảng cáo trên Android), <strong>SePay</strong> (báo
+chuyển khoản trên Android), <strong>Apple / Google</strong> (mua hàng và liên kết tài khoản tuỳ chọn). Dữ liệu trực tuyến được giữ
 đến khi bạn xoá trong Ứng dụng hoặc yêu cầu chúng tôi xoá. Dữ liệu do Google/Apple giữ theo chính
 sách của họ.</p>
 

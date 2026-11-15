@@ -180,6 +180,56 @@
   #lang span { padding: 3px 11px; border-radius: 999px; font-weight: 700; color: var(--muted); }
   html[lang="vi"] #lang .l-vi, html[lang="en"] #lang .l-en { background: var(--accent); color: var(--on-accent); }
   header.top nav a.cur { color: var(--text); font-weight: 700; }
+
+  /* Bản mới, dải giá chạy, kịch bản, cộng đồng, tải về */
+  .pill { display: inline-flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px 4px 10px; font-size: .86rem; color: var(--text); text-decoration: none; margin-bottom: 14px; }
+  .pill i { width: 8px; height: 8px; border-radius: 50%; background: #1f9d63; box-shadow: 0 0 0 0 rgba(31,157,99,.6); }
+  .pill b { color: var(--accent); }
+
+  .ticker { overflow: hidden; background: var(--card); border-bottom: 1px solid var(--line); font-size: .9rem; white-space: nowrap; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+  .ticker .run { display: inline-flex; gap: 28px; padding: 10px 14px; }
+  .ticker span { font-variant-numeric: tabular-nums; }
+  .ticker em { font-style: normal; font-weight: 700; margin-left: 6px; transition: color .4s ease; }
+  .ticker em.u { color: #1f9d63; } .ticker em.d { color: #d6455d; }
+  .ticker em.u::before { content: "▲ "; font-size: .75em; } .ticker em.d::before { content: "▼ "; font-size: .75em; }
+
+  .scen { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .scen .card { position: relative; overflow: hidden; }
+  .scen .yr { position: absolute; right: 14px; top: 10px; font-size: 2.4rem; font-weight: 900; line-height: 1; letter-spacing: -.03em; color: var(--line); pointer-events: none; }
+  .scen .card .ic, .scen .card h3, .scen .card p { position: relative; }
+  .scen .new-tag { display: inline-block; font-size: .7rem; font-weight: 800; background: var(--accent); color: var(--on-accent); border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
+
+  .dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+  .dl .card { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .dl .card .ic { font-size: 2.2rem; }
+  .dl ul { margin: 0; padding-left: 1.1em; color: var(--muted); font-size: .94rem; }
+  .dl li { margin: .25em 0; }
+  .dl .cta { align-self: flex-start; margin-top: auto; }
+
+  .new { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; list-style: none; padding: 0; margin: 0; }
+  .new li { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+  .new li b { font-size: 1.3rem; line-height: 1.2; }
+
+  .cta { position: relative; overflow: hidden; }
+  .hero .cta { margin: 0 8px 8px 0; }
+  .band .cta { margin: 4px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(31,157,99,.6); } 80%, 100% { box-shadow: 0 0 0 10px rgba(31,157,99,0); } }
+    @keyframes shine { 0%, 70% { left: -60%; } 100% { left: 130%; } }
+    @keyframes flash { 0% { background: color-mix(in srgb, currentColor 18%, transparent); } 100% { background: transparent; } }
+    .ticker .track { display: inline-flex; animation: slide 40s linear infinite; }
+    .ticker:hover .track { animation-play-state: paused; }
+    .ticker em.f { animation: flash .8s ease; border-radius: 4px; }
+    .pill { animation: up .7s cubic-bezier(.2,.7,.2,1) both; }
+    .pill i { animation: ping 1.8s ease-out infinite; }
+    .hero .cta:not(.ghost)::after, .band .cta:not(.ghost)::after { content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: skewX(-20deg); animation: shine 4.5s ease-in-out 1.5s infinite; }
+    .scen .card:hover .yr { color: color-mix(in srgb, var(--accent) 35%, var(--line)); transform: scale(1.08); }
+    .scen .yr { transition: color .3s ease, transform .3s ease; }
+    .new li { transition: transform .25s ease, border-color .25s ease; }
+    .new li:hover { transform: translateX(4px); border-color: var(--accent); }
+  }
 </style>
 </head>
 <body>
@@ -191,6 +241,8 @@
     <nav>
       <a class="hide-s" href="#howto"><span class="vi">Cách chơi</span><span class="en">How to play</span></a>
       <a class="hide-s" href="#features"><span class="vi">Tính năng</span><span class="en">Features</span></a>
+      <a class="hide-s" href="#scenarios"><span class="vi">Kịch bản</span><span class="en">Scenarios</span></a>
+      <a href="#download"><span class="vi">Tải về</span><span class="en">Download</span></a>
       <a href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a>
       <button id="lang" type="button" aria-label="Language"><span class="l-vi">VI</span><span class="l-en">EN</span></button>
     </nav>
@@ -200,6 +252,7 @@
 <div class="hero" id="top">
   <div class="wrap">
     <div>
+      <a class="pill" href="#new"><i></i><span class="vi"><b>Mới</b> · Bản 1.0.4 và bản Android</span><span class="en"><b>New</b> · Version 1.0.4 and Android</span></a>
       <h1>Đầu tư <span class="g">từ Đâu</span></h1>
       <p class="lead vi">Sống trọn đời một nhà đầu tư: bắt đầu với 10 triệu đồng ở tuổi 22, đi làm, tiết kiệm, đầu tư, lập gia đình và tìm tự do tài chính trước tuổi hưu.</p>
       <p class="lead en">Live a whole investor's life: start at 22 with 10 million VND, work, save, invest, start a family and reach financial freedom before retirement.</p>
@@ -209,8 +262,9 @@
         <span class="badge">📴 <span class="vi">Chơi offline được</span><span class="en">Plays offline</span></span>
         <span class="badge">🇻🇳 <span class="vi">Tiếng Việt · English</span><span class="en">Vietnamese · English</span></span>
       </div>
-      <a class="cta" href="#howto"><span class="vi">Xem cách chơi</span><span class="en">See how to play</span></a>
-      <a class="cta ghost" href="support.html"><span class="vi">Hỗ trợ</span><span class="en">Support</span></a>
+      <a class="cta" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 <span class="vi">Tải trên App Store</span><span class="en">Get it on the App Store</span></a>
+      <a class="cta" href="android.html">🤖 <span class="vi">Tải cho Android</span><span class="en">Download for Android</span></a>
+      <a class="cta ghost" href="#howto"><span class="vi">Xem cách chơi</span><span class="en">See how to play</span></a>
     </div>
     <div class="phone">
       <img class="vi" src="img/vi-home.webp" alt="Màn hình Trang chủ: tổng tài sản, mục tiêu và nút Tháng tới" width="480" height="1044">
@@ -225,6 +279,20 @@
   <div><b data-n="60">60</b><span class="vi">tuổi nghỉ hưu</span><span class="en">retirement age</span></div>
   <div><b><i data-n="20" style="font-style:normal">20</i>+</b><span class="vi">loại tài sản</span><span class="en">asset types</span></div>
 </div></div>
+
+<!-- Dải giá minh hoạ (không phải giá thật); JS nhảy số nhẹ. -->
+<div class="ticker" aria-hidden="true"><div class="track"><div class="run">
+  <span>🏛️ BANK<em class="u">2,4%</em></span>
+  <span>💻 TECH<em class="u">5,1%</em></span>
+  <span>🥇 <span class="vi">VÀNG</span><span class="en">GOLD</span><em class="u">0,8%</em></span>
+  <span>🪙 COIN<em class="d">7,3%</em></span>
+  <span>📊 S&amp;P 500<em class="u">1,2%</em></span>
+  <span>🏘️ <span class="vi">NHÀ ĐẤT</span><span class="en">PROPERTY</span><em class="d">0,6%</em></span>
+  <span>⛽ <span class="vi">DẦU</span><span class="en">OIL</span><em class="u">3,9%</em></span>
+  <span>💱 USD<em class="u">0,3%</em></span>
+  <span>🏗️ <span class="vi">THÉP</span><span class="en">STEEL</span><em class="d">1,7%</em></span>
+  <span>🛒 RETAIL<em class="u">0,9%</em></span>
+</div></div></div>
 
 <main class="wrap">
 
@@ -337,6 +405,22 @@
   </div>
 </section>
 
+<section id="scenarios">
+  <p class="eyebrow"><span class="vi">Kịch bản lịch sử</span><span class="en">Historical scenarios</span></p>
+  <h2><span class="vi">Sống lại những cơn bão tài chính</span><span class="en">Relive the great financial storms</span></h2>
+  <p class="sub vi">Mỗi kịch bản kéo dài 3 năm, dựng lại diễn biến của một thời kỳ có thật. Bạn biết lịch sử, nhưng nhân vật trong game thì không. Liệu bạn có giữ được bình tĩnh?</p>
+  <p class="sub en">Each scenario runs 3 years and replays how a real era unfolded. You know the history, but nobody in the game does. Can you keep your nerve?</p>
+  <div class="scen">
+    <div class="card"><span class="yr">1997</span><div class="ic">🌏</div><h3><span class="vi">Khủng hoảng tiền tệ châu Á</span><span class="en">Asian currency crisis</span><span class="new-tag"><span class="vi">MỚI</span><span class="en">NEW</span></span></h3><p class="vi">Vốn ngoại đổ vào, nhà đất và ngân hàng tăng từng tháng, vay gì cũng dễ. Nếu dòng tiền ấy quay đầu thì sao?</p><p class="en">Foreign money pours in, property and banks rise every month and loans are easy. What if that money turns around?</p></div>
+    <div class="card"><span class="yr">1999</span><div class="ic">💻</div><h3><span class="vi">Bong bóng dot-com</span><span class="en">Dot-com bubble</span></h3><p class="vi">Ai cũng nói về internet và cổ phiếu công nghệ tăng từng tuần. Bạn sẽ cưỡi cơn sóng, hay thoát đúng lúc?</p><p class="en">Everyone is talking about the internet and tech stocks climb every week. Will you ride the wave, or get out in time?</p></div>
+    <div class="card"><span class="yr">2008</span><div class="ic">🏦</div><h3><span class="vi">Khủng hoảng tài chính</span><span class="en">Financial crisis</span></h3><p class="vi">Bất động sản và ngân hàng đang sốt. Ai cũng vay để mua. Liệu bạn có nhận ra bong bóng trước khi nó vỡ?</p><p class="en">Property and banks are booming. Everyone borrows to buy. Will you spot the bubble before it bursts?</p></div>
+    <div class="card"><span class="yr">2011</span><div class="ic">📈</div><h3><span class="vi">Lạm phát phi mã</span><span class="en">Runaway inflation</span></h3><p class="vi">Giá cả leo thang từng tháng. Để tiền nằm yên có an toàn không, hay đang mất giá từng ngày?</p><p class="en">Prices climb every month. Is idle cash safe, or is it losing value every day?</p></div>
+    <div class="card"><span class="yr">2017</span><div class="ic">🪙</div><h3><span class="vi">Cơn sốt crypto</span><span class="en">Crypto mania</span></h3><p class="vi">Đồng coin nào cũng tăng gấp đôi mỗi tháng. Bạn sẽ lướt sóng, đứng ngoài, hay ôm đến cuối cùng?</p><p class="en">Every coin doubles each month. Will you ride the wave, stay out, or hold to the very end?</p></div>
+    <div class="card"><span class="yr">2020</span><div class="ic">🦠</div><h3><span class="vi">Đại dịch</span><span class="en">Pandemic</span></h3><p class="vi">Một dịch bệnh lạ bắt đầu lan. Thị trường chao đảo, thu nhập bị cắt, rồi lãi suất về gần 0.</p><p class="en">A strange disease starts spreading. Markets reel, income is cut, then rates drop near zero.</p></div>
+    <div class="card"><span class="yr">2022</span><div class="ic">⛽</div><h3><span class="vi">Cú sốc năng lượng</span><span class="en">Energy shock</span></h3><p class="vi">Chiến sự làm giá dầu vọt, lạm phát leo thang và lãi suất tăng nhanh. Tài sản nào đứng vững?</p><p class="en">War sends oil soaring, inflation climbs and rates rise fast. Which assets hold up?</p></div>
+  </div>
+</section>
+
 <section>
   <div class="split">
     <div>
@@ -371,6 +455,65 @@
   </div>
 </section>
 
+<section id="community">
+  <p class="eyebrow"><span class="vi">Cộng đồng</span><span class="en">Community</span></p>
+  <h2><span class="vi">Chơi một mình, so tài cùng mọi người</span><span class="en">Play solo, compete with everyone</span></h2>
+  <p class="sub vi">Mọi thứ trực tuyến đều tuỳ chọn. Không cần email hay số điện thoại.</p>
+  <p class="sub en">Everything online is optional. No email or phone number needed.</p>
+  <div class="grid">
+    <div class="card"><div class="ic">🏆</div><h3 class="vi">Mùa tỷ phú hằng tháng</h3><h3 class="en">Monthly billionaire seasons</h3><p class="vi">Bảng Tỷ phú cập nhật liên tục. Lọt top 10 cuối tháng là nhận huy hiệu 🏅 hiện mãi trong hồ sơ.</p><p class="en">A live Billionaires board. Finish a month in the top 10 and earn a 🏅 that stays on your profile.</p></div>
+    <div class="card"><div class="ic">🗓️</div><h3 class="vi">Thử thách ngày</h3><h3 class="en">Daily challenge</h3><p class="vi">Cùng một thế giới cho mọi người trong ngày. Đua với bóng ma của người dẫn đầu, xem kết quả hôm qua.</p><p class="en">The same world for everyone each day. Race the leader's ghost and check yesterday's results.</p></div>
+    <div class="card"><div class="ic">👥</div><h3 class="vi">Theo dõi bạn bè</h3><h3 class="en">Follow friends</h3><p class="vi">Ghim hạng của bạn, theo dõi bạn bè, xem hồ sơ và thành tích của người chơi khác.</p><p class="en">Pin your rank, follow friends, and view other players' profiles and stats.</p></div>
+    <div class="card"><div class="ic">🖼️</div><h3 class="vi">Chia sẻ hồ sơ thành ảnh</h3><h3 class="en">Share your profile as an image</h3><p class="vi">Một chạm để có tấm ảnh tổng kết tài sản, kết cục và huy hiệu, gửi ngay lên mạng xã hội.</p><p class="en">One tap for an image of your wealth, endings and medals, ready for social media.</p></div>
+    <div class="card"><div class="ic">🔗</div><h3 class="vi">Liên kết Google / Apple</h3><h3 class="en">Link Google / Apple</h3><p class="vi">Giữ tiến trình, giao dịch đã mua và hồ sơ khi đổi máy hay cài lại app.</p><p class="en">Keep your progress, purchases and profile when you change phones or reinstall.</p></div>
+    <div class="card"><div class="ic">☁️</div><h3 class="vi">Sao lưu đám mây</h3><h3 class="en">Cloud backup</h3><p class="vi">Tự sao lưu, giữ 5 bản cũ hơn. Hoặc chép một mã khôi phục để mang ván sang máy khác.</p><p class="en">Automatic backups with 5 older copies. Or copy a recovery code to move your game.</p></div>
+  </div>
+</section>
+
+<section id="new">
+  <p class="eyebrow"><span class="vi">Có gì mới · 1.0.4</span><span class="en">What's new · 1.0.4</span></p>
+  <h2><span class="vi">Thế giới sống động hơn</span><span class="en">A livelier world</span></h2>
+  <ul class="new vi">
+    <li><b>🤖</b><span>Có bản Android: tải APK trực tiếp, mua bằng chuyển khoản quét QR.</span></li>
+    <li><b>🔗</b><span>Liên kết tài khoản Google/Apple để giữ tiến trình khi đổi máy.</span></li>
+    <li><b>🛢️</b><span>Lãi suất Fed, giá dầu và biến cố riêng từng công ty ảnh hưởng thị trường.</span></li>
+    <li><b>🌏</b><span>Kịch bản mới: Khủng hoảng tiền tệ châu Á 1997.</span></li>
+    <li><b>🪙</b><span>Crypto không còn chắc thắng; giữ cổ phiếu riêng lẻ hợp lý hơn.</span></li>
+    <li><b>🏅</b><span>Bảng Tỷ phú trực tiếp; top 10 mùa nhận huy hiệu trong hồ sơ.</span></li>
+  </ul>
+  <ul class="new en">
+    <li><b>🤖</b><span>Android is here: download the APK directly, pay by scanning a bank QR.</span></li>
+    <li><b>🔗</b><span>Link a Google/Apple account to keep your progress across devices.</span></li>
+    <li><b>🛢️</b><span>Fed rates, oil prices and company-specific shocks move the market.</span></li>
+    <li><b>🌏</b><span>New scenario: the 1997 Asian currency crisis.</span></li>
+    <li><b>🪙</b><span>Crypto is no longer a sure win; holding single stocks is more realistic.</span></li>
+    <li><b>🏅</b><span>Live Billionaires board; season top 10 earn a medal on their profile.</span></li>
+  </ul>
+</section>
+
+<section id="download">
+  <p class="eyebrow"><span class="vi">Tải về</span><span class="en">Download</span></p>
+  <h2><span class="vi">Chơi trên iPhone hoặc Android</span><span class="en">Play on iPhone or Android</span></h2>
+  <p class="sub vi">Miễn phí. Cùng một bảng xếp hạng, liên kết tài khoản để giữ hồ sơ.</p>
+  <p class="sub en">Free. One shared leaderboard; link your account to keep your profile.</p>
+  <div class="dl">
+    <div class="card">
+      <div class="ic">🍎</div>
+      <h3>iPhone</h3>
+      <ul class="vi"><li>Tải trên App Store</li><li>Mua Premium, xuất thân qua App Store</li><li>Liên kết Apple hoặc Google</li></ul>
+      <ul class="en"><li>Get it on the App Store</li><li>Premium and backgrounds via the App Store</li><li>Link Apple or Google</li></ul>
+      <a class="cta" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 App Store</a>
+    </div>
+    <div class="card">
+      <div class="ic">🤖</div>
+      <h3>Android</h3>
+      <ul class="vi"><li>Tải file APK trực tiếp (chưa có trên Google Play)</li><li>Mua bằng chuyển khoản ngân hàng, quét mã QR, tự mở khoá sau vài giây</li><li>Bản mới cài đè lên được, không mất ván</li></ul>
+      <ul class="en"><li>Direct APK download (not on Google Play yet)</li><li>Pay by bank transfer: scan a QR, unlocks in seconds</li><li>New versions install over the old one, your game stays</li></ul>
+      <a class="cta" href="android.html">⬇️ <span class="vi">Tải APK</span><span class="en">Get the APK</span></a>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
   <h2>FAQ</h2>
   <details><summary><span class="vi">Đây có phải lời khuyên đầu tư không?</span><span class="en">Is this investment advice?</span></summary>
@@ -385,6 +528,12 @@
   <details><summary><span class="vi">Đổi máy thì ván chơi có mất không?</span><span class="en">Do I lose my game on a new phone?</span></summary>
     <p class="vi">Ván lưu trên máy. Vào Cài đặt, Sao lưu để chép mã hoặc sao lưu đám mây, rồi khôi phục trên máy mới. Gỡ app mà chưa sao lưu sẽ mất ván.</p>
     <p class="en">Games are saved on the device. Use Settings, Backup to copy the code or back up to the cloud, then restore on the new phone. Uninstalling without a backup loses the game.</p></details>
+  <details><summary><span class="vi">Bản Android có an toàn không? Sao không có trên Google Play?</span><span class="en">Is the Android version safe? Why not on Google Play?</span></summary>
+    <p class="vi">APK được ký bằng một khoá cố định và phát hành qua GitHub; trang <a href="android.html">tải Android</a> ghi mã chứng chỉ để bạn đối chiếu. Game chưa lên Google Play nên điện thoại sẽ hỏi cho phép cài từ nguồn này một lần.</p>
+    <p class="en">The APK is signed with a fixed key and published on GitHub; the <a href="android.html">Android page</a> shows the certificate fingerprint so you can check. The game is not on Google Play yet, so your phone asks once to allow installs from this source.</p></details>
+  <details><summary><span class="vi">Trên Android mua Premium thế nào?</span><span class="en">How do I buy Premium on Android?</span></summary>
+    <p class="vi">Bấm mua, app hiện mã QR kèm nội dung chuyển khoản. Quét bằng app ngân hàng, giữ nguyên nội dung; tiền về là gói tự mở trong vài giây. Lỡ tắt app thì lần mở sau vẫn nhận. Cần hỗ trợ thì xem trang <a href="support.html">Hỗ trợ</a>.</p>
+    <p class="en">Tap buy and the app shows a QR code with a transfer note. Scan it with your banking app and keep the note as is; the item unlocks within seconds of the money arriving. Closed the app? You still get it next time. Need help? See <a href="support.html">Support</a>.</p></details>
   <details><summary><span class="vi">Dữ liệu của tôi được dùng thế nào?</span><span class="en">How is my data used?</span></summary>
     <p class="vi">Xem <a href="privacy-policy.html">Chính sách quyền riêng tư</a>. Bạn có thể xoá dữ liệu trực tuyến ngay trong Cài đặt.</p>
     <p class="en">See the <a href="privacy-policy.html">Privacy Policy</a>. You can delete your online data from Settings at any time.</p></details>
@@ -394,8 +543,9 @@
   <h2><span class="vi">Sẵn sàng sống một đời nhà đầu tư?</span><span class="en">Ready to live an investor's life?</span></h2>
   <p class="vi">10 triệu đồng, 22 tuổi và cả một đời phía trước. Chỉ tiền ảo, nên cứ thoải mái thử sai.</p>
   <p class="en">10 million VND, age 22, and a whole life ahead. Virtual money only, so feel free to make mistakes.</p>
-  <a class="cta" href="support.html"><span class="vi">Cần giúp đỡ?</span><span class="en">Need help?</span></a>
-  <a class="cta ghost" href="privacy-policy.html"><span class="vi">Quyền riêng tư</span><span class="en">Privacy</span></a>
+  <a class="cta" href="https://apps.apple.com/app/id6826599388" rel="noopener">📱 App Store</a>
+  <a class="cta" href="android.html">🤖 Android</a>
+  <a class="cta ghost" href="support.html"><span class="vi">Cần giúp đỡ?</span><span class="en">Need help?</span></a>
 </div>
 
 </main>
@@ -452,7 +602,25 @@
         links.forEach(function (a) { a.classList.toggle('cur', a.getAttribute('href') === '#' + e.target.id); });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    document.querySelectorAll('#howto, #features').forEach(function (el) { spy.observe(el); });
+    document.querySelectorAll('#howto, #features, #scenarios, #download').forEach(function (el) { spy.observe(el); });
+  })();
+
+  // Dải giá: nhân đôi để chạy vòng liền mạch, thỉnh thoảng nhảy số một mã (giá minh hoạ).
+  (function () {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var track = document.querySelector('.ticker .track');
+    track.appendChild(track.firstElementChild.cloneNode(true));
+    var runs = track.children, n = runs[0].querySelectorAll('em').length;
+    setInterval(function () {
+      var i = Math.floor(Math.random() * n), v = (Math.random() * 6 + 0.1), up = Math.random() < 0.6;
+      for (var r = 0; r < runs.length; r++) {
+        var em = runs[r].querySelectorAll('em')[i];
+        em.textContent = v.toFixed(1).replace('.', ',') + '%';
+        em.className = (up ? 'u' : 'd');
+        void em.offsetWidth;
+        em.classList.add('f');
+      }
+    }, 1600);
   })();
 
   // Hiện dần khi cuộn tới; thanh tiến độ cuộn ở mép trên.
@@ -467,7 +635,7 @@
     progress();
     if (still || !('IntersectionObserver' in window)) return;
     document.documentElement.classList.add('js');
-    var sel = 'section h2, section .sub, .tips, .steps li, .card, .chip, .shot, .split > div, details';
+    var sel = 'section h2, section .sub, .tips, .steps li, .card, .chip, .shot, .split > div, details, .new li';
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
